@@ -1,0 +1,151 @@
+<!-- <div class="container-fluid">
+    <div class="row flex justify-content-" style="height:500px">
+        <div class="col-md-4 text-center">
+            <h1>Column 2</h1>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-center text-center">
+
+            <div class="row ">
+                <h1>boton</h1>
+            </div>
+        </div>
+        <div class="col-4 text-center">
+            <h1>Columna 1</h1>
+        </div>
+    </div>
+</div> -->
+    <div class="container h-auto">
+        <div class="row h-auto">
+            <!-- Tabla trabajadores-->
+            <div class="col-5 d-flex justify-content-around">
+                <div class="mat-elevation-z8 data-table rounded-3">
+                    <h3 class="text-center mt-3">Trabajadores</h3>
+                    <!-- Filtro -->
+                    <div class="m-2">
+                        <mat-form-field class="search-form-field w-100">
+                            <input matInput [(ngModel)]="searchKey" placeholder="Introduce un filtro"
+                                (keyup)="applyFilter()" autocomplete="off" />
+                            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"
+                                (click)="onSearchClear()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
+                        <!-- Checkbox Column -->
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <h6>Seleccionar</h6>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <!--Columna Código Trabajador-->
+                        <ng-container matColumnDef="CodigoTrabajador">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                <h6>Cod.</h6>
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row.CodigoTrabajador}}</td>
+                        </ng-container>
+                        <!--Columna Nombre-->
+                        <ng-container matColumnDef="Nombre">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                <h6>Nombre</h6>
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row.Nombre}}</td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+                        </tr>
+                    </mat-table>
+                    <div class="footer">
+                    <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
+                        [pageSizeOptions]="[5,10, 15, 20]" showFirstLastButtons>
+                    </mat-paginator>                        
+                    </div>
+                </div>
+            </div>
+            <!--Botón-->
+            <div class="col-2 d-flex justify-content-around align-items-center">
+                <button mat-raised-button (click)="convertirAUser(selection)">
+                    <mat-icon>arrow_right_alt</mat-icon>
+                </button>
+            </div>
+            <!--Tabla Usuarios-->
+            <div class="col-5 d-flex justify-content-around">
+                <div class="mat-elevation-z8 data-table rounded-3">
+                    <h3 class="text-center mt-3">Usuarios</h3>
+                    <!-- Filtro -->
+                    <div class="m-2">
+                        <mat-form-field class="search-form-field w-100">
+                            <input matInput [(ngModel)]="searchKeyUser" placeholder="Introduce un filtro"
+                                (keyup)="applyFilterUser()" autocomplete="off" />
+                            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKeyUser"
+                                (click)="onSearchClearUser()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <mat-table #mata mat-table class="full-width-table" [dataSource]="dataSourceUsers" matSort
+                        aria-label="Elements">
+                        <!--Columna Código Trabajador-->
+                        <ng-container matColumnDef="Codigo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                <h6>Cod.</h6>
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row.Codigo}}</td>
+                        </ng-container>
+                        <!--Columna Nombre-->
+                        <ng-container matColumnDef="Nombre">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                <h6>Nombre</h6>
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{row.Nombre}}</td>
+                        </ng-container>
+                        <!-- Columna acciones -->
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <h6>Acciones</h6>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                    <button *ngIf="row.TipoUsuario==6" mat-icon-button color="warn" (click)="delete(row.Codigo)">
+                                        <mat-icon>delete_forever</mat-icon>
+                                    </button>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsUsers; sticky:true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsUsers;">
+                        </tr>
+                    </mat-table>
+                    <mat-paginator fixed #paginatorUser class="mat-paginator-sticky"  [length]="dataSourceUsers.data.length"
+                        [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- <div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <h2>Flex</h2>
+            <p>To create a flexbox container and transform direct children into flex items, use the d-flex class:</p>
+            <div class="d-flex align-items-center justify-content-around p-3 bg-secondary text-white">
+                <div class="p-2 bg-info">
+                    <h1>HOla</h1>
+                </div>
+                <div class="p-2 bg-warning">
+                    <h1>HOla</h1>
+                </div>
+                <div class="p-2 bg-primary">
+                    <h1>HOla</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

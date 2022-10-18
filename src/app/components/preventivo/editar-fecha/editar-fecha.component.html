@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-12">
+            <div>
+                <p class="h4 text-center">Fecha Preventivo</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 d-flex justify-content-center">
+            <p>Nº Preventivo: {{preventivo.utprevid}}</p>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            <p>Semana Actual: {{semanaActual}}</p>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-12">
+            <div [formGroup]="fechaForm">
+                <mat-form-field appearance="standard" class="w-100">
+                    <input matInput [matDatepicker]="datepicker" formControlName="fecha" placeholder="Fecha"
+                        (dateChange)="editarFecha()" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                    </mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row w-100">
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+                <button class="me-2" [disabled]="fechaForm.invalid" mat-raised-button
+                    [mat-dialog-close]="preventivo">Editar Fecha</button>
+                <button mat-raised-button class="bg-danger" (click)="cancelar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

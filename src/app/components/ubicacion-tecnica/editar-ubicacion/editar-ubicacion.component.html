@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row w-100">
+        <div class="col-12">
+            <form [formGroup]="nueva">
+                <h1 class="text-center" mat-dialog-title>Editar Ubicación</h1>
+                <mat-dialog-content>
+                    <mat-form-field class="w-100">
+                        <mat-label>Denominación</mat-label>
+                        <input matInput type="text" formControlName="Denominacion" name="denominacion">
+                    </mat-form-field>
+                    <mat-form-field class="w-100"  *ngIf="data.hasOwnProperty('Descripcion')">
+                        <mat-label>Descripción</mat-label>
+                        <input matInput type="text" formControlName="Descripcion" name="descripcion">
+                    </mat-form-field>
+                </mat-dialog-content>
+            </form>
+        </div>
+    </div>
+    <div class="row w-100">
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+                <button mat-raised-button class="bg-success" [mat-dialog-close]="nueva.value">Editar</button>
+                <button mat-raised-button class="bg-danger" (click)="cancelar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

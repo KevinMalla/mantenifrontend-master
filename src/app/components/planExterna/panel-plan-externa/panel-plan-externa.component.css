@@ -1,0 +1,61 @@
+.label-schema {
+    color: gray;
+    font-weight:bolder;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.title {
+    color: #ff8c00;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 2em;
+}
+
+.tarjeta-calendario {
+    text-decoration: none;
+    color: gray;
+    font-weight: bold;
+    text-align: left;
+}
+
+.card-header {
+    background-color: #ff8c00;
+    text-align: center;
+    /* background-color: #D3CFCE; */
+    color: white;
+}
+
+.card {
+    border-color: #ff8c00;
+    border-width: 2px;
+}
+
+.card-header:hover {
+    background-color: #ff8c00;
+    color: white;
+    cursor: pointer;
+}
+
+a {
+    cursor: pointer;
+}
+
+/* .empresa {
+    
+} */
+
+.empresa:hover {
+    color: #ff8c00;
+}
+
+.btn-mes:hover {
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    font-weight: bold;
+    height: 100%;
+    width: 100%;
+}

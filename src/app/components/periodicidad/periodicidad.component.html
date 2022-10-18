@@ -1,0 +1,104 @@
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+    <div class="row w-75">
+        <div class="col-12">
+            <div>
+                <h2 class="text-center">Periodicidad</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row w-75">
+        <div class="col-8">
+            <mat-form-field appearance="standard" class="search-form-field w-100">
+                <input matInput [(ngModel)]="searchKey" placeholder="Introduce un filtro" (keyup)="applyFilter()"
+                    autocomplete="off" />
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"
+                    (click)="onSearchClear()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="col-4 border rounded-3 mb-1 ps-1 d-flex justify-content-center align-items-center">
+            <mat-form-field appearance="standard">
+                <mat-label>Nueva Periodicidad</mat-label>
+                <input matInput type="text" placeholder="Introduce periodicidad" [(ngModel)]="periodicidad.Descripcion">
+            </mat-form-field>
+            <mat-form-field appearance="standard" class="mx-1 w-25">
+                <mat-label>Días</mat-label>
+                <input matInput type="number" min="1" [(ngModel)]="periodicidad.Dias" >
+            </mat-form-field>  
+            <button mat-button matSuffix mat-icon-button (click)="add()" *ngIf="periodicidad.Descripcion && periodicidad.Dias">
+                <mat-icon>add</mat-icon>
+            </button>              
+        </div>
+        <div class="col-12 p-0">
+            <table class="w-100 border" mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">
+                        <div [ngSwitch]="col">
+                        <span *ngSwitchCase="'isEdit'" class="fs-4">
+                                Acciones
+                        </span>
+                        <span *ngSwitchDefault class="fs-4">
+                            {{col}}
+                        </span>
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit">
+                            <div *ngSwitchCase="'isEdit'; spanHeader">
+                                <button class="btn btn-success" (click)="element.isEdit = !element.isEdit"
+                                    title="Editar Material">Editar
+                                </button>
+                                <button class="btn btn-danger ms-1" (click)="remove(element.PeriodicidadId)" title="Eliminar">
+                                    Eliminar
+                                </button>
+                            </div>
+                            <span *ngSwitchDefault class="fs-6">
+                                {{element[col]}}
+                            </span>
+                        </div>
+                        <div [ngSwitch]="col" *ngIf="element.isEdit">
+                            <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                                <button class="btn btn-success"
+                                    (click)="element.isEdit = !element.isEdit; editar(element)"
+                                    title="Guardar">Guardar</button>
+                            </div>
+                            <span *ngSwitchCase="'PeriodicidadId'">
+                                {{element[col]}}
+                            </span>
+                            <mat-form-field *ngSwitchDefault appearance="outline" class="w-50 mt-3">
+                                <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
+                            </mat-form-field>
+                        </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef>
+                        <input type="text" class="form-control" [placeholder]="col" />
+                    </td>
+                </ng-container>
+                <!-- Columna de acciones -->
+                <ng-container matColumnDef="Eliminar">
+                    <th mat-header-cell *matHeaderCellDef style="width: 5%;">
+                        <h5>Eliminar</h5>
+                    </th>
+                    <!-- Eliminar -->
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button style="color: red;" (click)="remove(row.codigo)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </td>
+                    <!-- Agregar -->
+                    <td mat-footer-cell *matFooterCellDef>
+                        <button mat-icon-button (click)="insert()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[10, 25, 50, 100, 150, 200]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

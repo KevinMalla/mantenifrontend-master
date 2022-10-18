@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row w-100">
+        <div class="col-12">
+            <form [formGroup]="formPlanExterna" (ngSubmit)="editar()">
+                <h1 class="text-center" mat-dialog-title>Editar Plan Externa</h1>
+                <mat-dialog-content>
+
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Empresa</mat-label>
+                        <mat-select formControlName="idEmpresa" required>
+                            <mat-option *ngFor="let ee of empresasExternas"
+                                 [value]="ee.id">
+                                {{ee.nombre}}
+                            </mat-option>
+                        </mat-select>
+                       
+                    </mat-form-field>
+
+                    <p>Descripción</p>
+                    <mat-form-field class="w-100">
+                        <input matInput type="text" formControlName="descripcion">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Periodicidad</mat-label>
+                        <mat-select formControlName="idPeriodicidad" required>
+                            <mat-option *ngFor="let p of periodicidades"
+                                        [value]="p.PeriodicidadId">
+                                {{p.Descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="standard" class="w-100">
+                        <input matInput [matDatepicker]="datepicker" formControlName="fecha"
+                                placeholder="Fecha" required>
+                        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker>
+                        </mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100">
+                        <mat-label>Estado</mat-label>
+                        <mat-select formControlName="estado" required>
+                            <mat-option *ngFor="let e of estados"
+                                        [value]="e">
+                                {{e}}        
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-dialog-content>
+            </form>
+        </div>
+    </div>
+
+    <div class="row w-100">
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+                <button mat-raised-button class="bg-success" (click)="editar()">Editar</button>
+                <button mat-raised-button class="bg-danger" (click)="cancelar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

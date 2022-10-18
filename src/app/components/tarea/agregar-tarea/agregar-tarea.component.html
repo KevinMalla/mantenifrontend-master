@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <!-- Filtro -->
+      <mat-form-field class="search-form-field w-100" >
+        <input matInput [(ngModel)]="searchKey" placeholder="Introduce un filtro" (keyup)="applyFilter()"
+            autocomplete="off" />
+        <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <!-- Id Column -->
+        <ng-container matColumnDef="TareaId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.TareaId}} </td>
+        </ng-container>
+      
+        <!-- Descripción Column -->
+        <ng-container matColumnDef="Descripcion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+          <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click)="selection.toggle(row)">
+        </tr>
+      </table>
+      <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100, 150, 200]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button mat-raised-button [mat-dialog-close]="tareas" (click)="logSelection()" [disabled]="this.selection.selected.length==0">Añadir</button>
+      <button mat-raised-button class="bg-danger" (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>
+</div>

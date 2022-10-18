@@ -1,0 +1,230 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav [mode]="mode.value" class="barra">
+        <button class="cerrar" mat-button mat-icon-buttom (click)="sidenav.toggle()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-accordion class="p-3">
+
+            <!-- Ubicaciones Técnicas -->
+            <mat-expansion-panel class="panel mx-1">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="texto">
+                        <i class="bi bi-pin-map-fill fs-5"></i>
+                        <span>Ubicaciones técnicas</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="texto">
+                    <button mat-raised-button matSuffix [routerLink]="['ubicaciontecnica/visualizar']">
+                        <mat-icon>search</mat-icon>Visualizar
+                    </button>
+                    <button mat-raised-button [routerLink]="['ubicaciontecnica/administrar']"
+                        *ngIf="tipo==1 || tipo==5">
+                        <mat-icon>list_alt</mat-icon>
+                        <span>Administrar</span>
+                    </button>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- Tareas De Preventivos-->
+            <mat-expansion-panel *ngIf="tipo==1 || tipo==5" class="panel mx-1">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="texto">
+                        <i class="bi bi-calendar3-range fs-5"></i>
+                        <span>Preventivos</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="texto">
+                    <button mat-raised-button [routerLink]="['preventivo/plan']">
+                        <i class="bi bi-calendar fs-5"></i>
+                        <span>Plan Preventivo</span>
+                    </button>
+                    <button mat-raised-button [routerLink]="['preventivo/crear']">
+                        <i class="bi bi-calendar2-plus-fill fs-5"></i>
+                        <span>Crear</span>
+                    </button>
+                    <button mat-raised-button [routerLink]="['preventivo/tarea']">
+                        <i class="bi bi-wrench fs-5"></i>
+                        <span>Tareas</span>
+                    </button>
+                    <button mat-raised-button [routerLink]="['preventivo/administrar']">
+                        <i class="bi bi-card-list fs-5"></i>
+                        <span>Administrar</span>
+                    </button>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- Fin Tareas Preventivos-->
+            <!-- Operarios -->
+            <mat-expansion-panel *ngIf="tipo==1 || tipo==5" class="panel mx-1">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="texto">
+                        <i class="bi bi-people-fill fs-5"></i>
+                        <span>Operarios</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="texto">
+                    <button mat-raised-button [routerLink]="['operario']">
+                        <i class="bi bi-file-earmark-person fs-5"></i>
+                        <span>Gestionar</span>
+                    </button>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- Orden de trabajo -->
+            <mat-expansion-panel class="panel mx-1">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="texto">
+                        <i class="bi bi-briefcase-fill fs-5"></i>
+                        <span>Ordenes de trabajo</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-expansion-panel class="panel" *ngIf="tipo==1 || tipo==5 || tipo==6">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="texto">
+                            <i class="bi bi-calendar4-range fs-5"></i><span>Preventivas</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="texto">
+                        <button mat-raised-button [routerLink]="['ordendetrabajo/kanban']">
+                            <i class="bi bi-kanban-fill fs-5"></i>
+                            <span>Kanban</span>
+                        </button>
+                    </div>
+                    <div class="texto">
+                        <button *ngIf="tipo==1 || tipo==5" mat-raised-button
+                            [routerLink]="['ordendetrabajo/consultar/preventivo']">
+                            <mat-icon>folder</mat-icon>
+                            <span>Histórico</span>
+                        </button>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="panel">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="texto">
+                            <i class="bi bi-calendar4-event fs-5"></i><span>Correctivas</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="texto">
+                        <button mat-raised-button [routerLink]="['ordendetrabajo/crearorden']">
+                            <i class="bi bi-file-earmark-plus-fill fs-5"></i>
+                            <span>Crear</span>
+                        </button>
+                    </div>
+                    <div class="texto">
+                        <button mat-raised-button [routerLink]="['ordendetrabajo/kanbancorrectiva']">
+                            <i class="bi bi-kanban-fill fs-5"></i>
+                            <span>Kanban</span>
+                        </button>
+                    </div>
+                    <div class="texto">
+                        <button *ngIf="tipo==1 || tipo==5 || tipo==6" mat-raised-button
+                            [routerLink]="['ordendetrabajo/consultar/correctivo']">
+                            <mat-icon>folder</mat-icon>
+                            <span>Histórico</span>
+                        </button>
+                    </div>
+                </mat-expansion-panel>
+            </mat-expansion-panel>
+
+            <!-- Materiales -->
+            <mat-expansion-panel class="panel mx-1">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="texto">
+                        <i class="bi bi-card-checklist fs-5"></i>
+                        <span>Materiales</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="texto">
+                    <button mat-raised-button matSuffix [routerLink]="['material/administrar']">
+                        <mat-icon> format_list_numbered</mat-icon>
+                        <span>Lista</span>
+                    </button>
+                </div>
+                <div class="texto">
+                    <button *ngIf="tipo==1 || tipo==5" mat-raised-button matSuffix [routerLink]="['material/descontar']">
+                        <i class="bi bi-eraser fs-5"></i>
+                        <span>Utilizados</span>
+                    </button>
+                </div>
+                <div class="texto">
+                    <button mat-raised-button matSuffix [routerLink]="['material/add']">
+                        <i class="bi bi-clipboard-plus fs-5"></i>
+                        <span>Añadir utilizados</span>
+                    </button>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- Plan Externas -->            
+            <mat-expansion-panel class="panel mx-1">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="texto">
+                        <i class="bi bi-people-fill fs-5"></i>
+                        <span>Plan Externas</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="texto">
+                    <button mat-raised-button [routerLink]="['planexterna/addempresa']">
+                        <i class="bi bi-plus fs-5"></i>
+                        <span>Añadir Empresa</span>
+                    </button>
+                </div>
+                <div class="texto">
+                    <button mat-raised-button [routerLink]="['planexterna/listempresas']">
+                        <i class="bi bi-card-list fs-5"></i>
+                        <span>Listar Empresas</span>
+                    </button>
+                </div>
+                <div class="texto">
+                    <button mat-raised-button [routerLink]="['planexterna/add']">
+                        <i class="bi bi-plus fs-5"></i>
+                        <span>Crear Plan Externa</span>
+                    </button>
+                </div>
+                <div class="texto">
+                    <button mat-raised-button [routerLink]="['planexterna/listar']">
+                        <i class="bi bi-card-list fs-5"></i>
+                        <span>Listar planificaciones</span>
+                    </button>
+                </div>
+                <div class="texto">
+                    <button mat-raised-button [routerLink]="['planexterna/panel']">
+                        <i class="bi bi-kanban fs-5"></i>
+                        <span>Panel control</span>
+                    </button>
+                </div>
+                <div class="texto">
+                    <button mat-raised-button [routerLink]="['planexterna/historico']">
+                        <i class="bi bi-server"></i>
+                        <span>Histórico</span>
+                    </button>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- Externas -->
+
+            <!-- Administrar -->
+            <mat-expansion-panel *ngIf="tipo==1 || tipo==5" class="panel mx-1">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="texto">
+                        <mat-icon>settings</mat-icon>
+                        <span>Administrar</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="texto">
+                    <button mat-raised-button matSuffix [routerLink]="['periodicidad']">
+                        <i class="bi bi-arrow-counterclockwise fs-5"></i>
+                        <span>Periodicidad</span>
+                    </button>
+                </div>
+            </mat-expansion-panel>
+            <!-- Fin Orden de trabajo-->
+        
+        </mat-accordion>
+    </mat-sidenav>
+    <mat-sidenav-content class="overflow-auto" [ngClass]="{imagen: imagen == true}" style="height: 95vh;">
+        <button mat-icon-button (click)="sidenav.toggle()" style="position:sticky; top:0; z-index: 4;">
+            <i class="bi bi-chevron-compact-right fs-4"></i>
+        </button>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

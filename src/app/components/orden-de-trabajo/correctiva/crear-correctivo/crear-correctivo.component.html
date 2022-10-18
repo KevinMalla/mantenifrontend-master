@@ -1,0 +1,227 @@
+<div class="container-fluid w-75">
+    <div class="row bg-white">
+        <div class="col-12">
+            <p class="h1 text-center p-2">CORRECTIVO</p>
+        </div>
+    </div>
+    <div class="row bg-light">
+        <div class="col-12">
+            <p class="h2 text-center p-2">UBICACIÓN</p>
+        </div>
+    </div>
+    <div class="row bg-white">
+        <div class="col-12 p-2">
+            <mat-horizontal-stepper [orientation]="(stepperOrientation | async)!" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                    <form [formGroup]="firstFormGroup"
+                        class="d-flex flex-column justify-content-center align-items-center">
+                        <ng-template matStepLabel>Planta</ng-template>
+                        <mat-form-field class="w-50">
+                            <mat-label>Planta</mat-label>
+                            <mat-select formControlName="firstCtrl" (selectionChange)="onChangePlanta($event.value)"
+                                required>
+                                <mat-option *ngFor="let item of plantas" [value]="item">
+                                    {{item.Denominacion}} - {{item.Descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Planta es requerida</mat-error>
+                        </mat-form-field>
+                        <div>
+                            <button class="btn btn-success" [disabled]="firstFormGroup.invalid || areas.length==0"
+                                matStepperNext>Siguiente</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup">
+                    <form [formGroup]="secondFormGroup"
+                        class="d-flex flex-column justify-content-center align-items-center">
+                        <ng-template matStepLabel>Área</ng-template>
+                        <mat-form-field class="w-50">
+                            <mat-label>Área</mat-label>
+                            <mat-select formControlName="secondCtrl" (selectionChange)="onChangeArea($event.value)"
+                                required>
+                                <mat-option *ngFor="let item of areas" [value]="item">
+                                    {{item.Denominacion}} - {{item.Descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div>
+                            <button class="btn btn-danger me-1"
+                                (click)="resetForm(secondFormGroup); ordenCorrectiva.Area = 0"
+                                matStepperPrevious>Anterior</button>
+                            <button class="btn btn-success" [disabled]="secondFormGroup.invalid || zonas.length==0"
+                                matStepperNext>Siguiente</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="thirdFormGroup">
+                    <form [formGroup]="thirdFormGroup"
+                        class="d-flex flex-column justify-content-center align-items-center">
+                        <ng-template matStepLabel>Zona</ng-template>
+                        <mat-form-field class="w-50">
+                            <mat-label>Zona</mat-label>
+                            <mat-select formControlName="thirdCtrl" (selectionChange)="onChangeZona($event.value)"
+                                required>
+                                <mat-option *ngFor="let item of zonas" [value]="item">
+                                    {{item.Denominacion}} - {{item.Descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div>
+                            <button class="btn btn-danger me-1"
+                                (click)="resetForm(thirdFormGroup); ordenCorrectiva.Zona=0"
+                                matStepperPrevious>Anterior</button>
+                            <button class="btn btn-success" [disabled]="thirdFormGroup.invalid || secciones.length==0"
+                                matStepperNext>Siguiente</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="fourthFormGroup">
+                    <form [formGroup]="fourthFormGroup"
+                        class="d-flex flex-column justify-content-center align-items-center">
+                        <ng-template matStepLabel>Sección</ng-template>
+                        <mat-form-field class="w-50">
+                            <mat-label>Sección</mat-label>
+                            <mat-select formControlName="fourthCtrl" (selectionChange)="onChangeSeccion($event.value)"
+                                required>
+                                <mat-option *ngFor="let item of secciones" [value]="item">
+                                    {{item.Denominacion}} - {{item.Descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div>
+                            <button class="btn btn-danger me-1"
+                                (click)="resetForm(fourthFormGroup); ordenCorrectiva.Seccion=0"
+                                matStepperPrevious>Anterior</button>
+                            <button class="btn btn-success" [disabled]="fourthFormGroup.invalid || codigos.length==0"
+                                matStepperNext>Siguiente</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="fifthFormGroup">
+                    <form [formGroup]="fifthFormGroup"
+                        class="d-flex flex-column justify-content-center align-items-center">
+                        <ng-template matStepLabel>Código</ng-template>
+                        <mat-form-field class="w-50">
+                            <mat-label>Código</mat-label>
+                            <mat-select formControlName="fifthCtrl" (selectionChange)="onChangeCodigo($event.value)"
+                                required>
+                                <mat-option *ngFor="let item of codigos" [value]="item">
+                                    {{item.Denominacion}} - {{item.Descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div>
+                            <button class="btn btn-danger me-1"
+                                (click)="resetForm(fifthFormGroup); ordenCorrectiva.Codigo=0"
+                                matStepperPrevious>Anterior</button>
+                            <button class="btn btn-success" [disabled]="fifthFormGroup.invalid || grupos.length==0"
+                                matStepperNext>Siguiente</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="sixthFormGroup">
+                    <form [formGroup]="sixthFormGroup"
+                        class="d-flex flex-column justify-content-center align-items-center">
+                        <ng-template matStepLabel>Grupo</ng-template>
+                        <mat-form-field class="w-50">
+                            <mat-label>Grupo</mat-label>
+                            <mat-select formControlName="sixthCtrl" (selectionChange)="onChangeGrupo($event.value)"
+                                required>
+                                <mat-option *ngFor="let item of grupos" [value]="item">
+                                    {{item.Denominacion}} - {{item.Descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div>
+                            <button class="btn btn-danger me-1"
+                                (click)="resetForm(sixthFormGroup); ordenCorrectiva.Grupo=0"
+                                matStepperPrevious>Anterior</button>
+                            <button class="btn btn-success" [disabled]="sixthFormGroup.invalid || equipos.length==0"
+                                matStepperNext>Siguiente</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="seventhFormGroup">
+                    <form [formGroup]="seventhFormGroup"
+                        class="d-flex flex-column justify-content-center align-items-center">
+                        <ng-template matStepLabel>Equipo</ng-template>
+                        <mat-form-field class="w-50">
+                            <mat-label>Equipo</mat-label>
+                            <mat-select formControlName="seventhCtrl" (selectionChange)="onChangeEquipo($event.value)"
+                                required>
+                                <mat-option *ngFor="let item of equipos" [value]="item">
+                                    {{item.Denominacion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div>
+                            <button class="btn btn-danger"
+                                (click)="resetForm(seventhFormGroup); ordenCorrectiva.Equipo=0"
+                                matStepperPrevious>Anterior</button>
+                        </div>
+                    </form>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+    </div>
+    <div class="row bg-white">
+        <div class="col-12 d-flex">
+            <p class="m-3" *ngIf="firstFormGroup.controls.firstCtrl.value"><strong>Planta:
+                </strong>{{firstFormGroup.controls.firstCtrl.value.Descripcion}}</p>
+            <p class="m-3" *ngIf="secondFormGroup.controls.secondCtrl.value"><strong>Area:
+                </strong>{{secondFormGroup.controls.secondCtrl.value.Descripcion}}</p>
+            <p class="m-3" *ngIf="thirdFormGroup.controls.thirdCtrl.value"><strong>Zona:
+                </strong>{{thirdFormGroup.controls.thirdCtrl.value.Descripcion}}</p>
+            <p class="m-3" *ngIf="fourthFormGroup.controls.fourthCtrl.value"><strong>Sección:
+                </strong>{{fourthFormGroup.controls.fourthCtrl.value.Descripcion}}</p>
+            <p class="m-3" *ngIf="fifthFormGroup.controls.fifthCtrl.value"><strong>Código:
+                </strong>{{fifthFormGroup.controls.fifthCtrl.value.Descripcion}}</p>
+            <p class="m-3" *ngIf="sixthFormGroup.controls.sixthCtrl.value"><strong>Grupo:
+                </strong>{{sixthFormGroup.controls.sixthCtrl.value.Descripcion}}</p>
+            <p class="m-3" *ngIf="seventhFormGroup.controls.seventhCtrl.value"><strong>Equipo:
+                </strong>{{seventhFormGroup.controls.seventhCtrl.value.Denominacion}}</p>
+        </div>
+        <!-- <div class="col-12">
+            {{ordenCorrectiva | json}}
+        </div> -->
+    </div>
+    <div class="row bg-light">
+        <div class="col-12">
+            <p class="h3 text-center p-3">DETALLES</p>
+        </div>
+    </div>
+    <div class="row bg-white d-flex justify-content-center pt-3" [formGroup]="nueva">
+        <div class="col-4 d-flex flex-column">
+            <mat-form-field appearance="outline">
+                <mat-label>Prioridad</mat-label>
+                <mat-select formControlName="PrioridadId">
+                  <mat-option *ngFor="let prioridad of prioridades" [value]="prioridad.PrioridadId">{{prioridad.Descripcion}}
+                    <ng-container [ngSwitch]="prioridad.PrioridadId">
+                    <i *ngSwitchCase="4" class="bi bi-exclamation-triangle-fill text-danger"></i>
+                    <i *ngSwitchCase="3"  class="bi bi-caret-up-fill text-danger"></i>
+                    <i *ngSwitchCase="2"  class="fas fa-equals"></i>
+                    <i *ngSwitchCase="1"  class="bi bi-caret-down-fill text-success"></i>            
+                    </ng-container>
+                  </mat-option>
+                </mat-select>
+                <mat-error>Prioridad es necesaria</mat-error>
+              </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Título</mat-label>
+                <input matInput formControlName="TituloCorrectivo">
+                <mat-error>Título es requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="DescripcionCorrectivo" cdkTextareaAutosize #autosize="cdkTextareaAutosize"cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                <mat-error>Descripción es requerida</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row bg-white d-flex justify-content-center pb-3">
+        <div class="col-4 d-flex flex-column">
+            <button class="btn btn-secondary" [disabled]="nueva.invalid || firstFormGroup.invalid" (click)="crearOrden()">Crear</button>
+        </div>
+    </div>
+</div>

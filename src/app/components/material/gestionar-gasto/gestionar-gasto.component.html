@@ -1,0 +1,47 @@
+<div class="container d-flex flex-column justify-content-center align-items-center">
+    <div class="row w-100">
+        <div class="col-12">
+            <div>
+                <h2 class="text-center">Materiales Utilizados</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row w-100">
+        <div class="col-2 p-0">
+            <div>
+                <select class="form-select mb-1" [(ngModel)]="filtro" (ngModelChange)="filtrar(filtro)">
+                    <option value="0">Todos</option>
+                    <option value="1">Descontados</option>
+                    <option value="2">Sin descontar</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2">
+            <div>
+                <button class="btn btn-danger mb-1" (click)="darPorDescontado()" *ngIf="filtro==2"
+                    [disabled]="dataSource.data.length==0">Descontar</button>
+            </div>
+        </div>
+    </div>
+    <div class="row w-100">
+        <div class="col-12 w-100 p-0">
+            <table class="w-100 border" mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
+                <ng-container matColumnDef="{{col}}" *ngFor="let col of columnsToDisplay">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{col}}
+                    </th>
+                    <td mat-cell *matCellDef="let element" [ngSwitch]="col">
+                        <span *ngSwitchCase="'OrdenId'"><a
+                                [routerLink]="['/ordendetrabajo/orden', element[col]]">{{element[col]}}</a></span>
+                        <span *ngSwitchDefault>{{element[col]}}</span>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[10, 25, 50, 100, 150, 200]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

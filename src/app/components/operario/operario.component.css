@@ -1,0 +1,69 @@
+.full-width-table {
+    width: 100%;    
+  }
+.data-table{
+  width: 100%;
+  margin: 20px auto;
+  padding: 1%;
+  background-color: white
+}
+.data-table {
+  font-size: 14px;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.mat-raised-button{
+  background-color: #ff8c00;
+  color: white;
+}
+table {
+  width: 100%;
+}
+
+.mat-column-CodigoTrabajador, .mat-column-Codigo , .mat-column-Nombre, .mat-column-select, .mat-column-acciones 
+{
+  padding-right: 1%;
+  Word-wrap: break-Word !important;
+  white-space: unset !important;
+  flex: 0 0 12% !important;
+  width: 12% !important;
+  overflow-wrap: break-Word;
+  Word-wrap: break-Word;
+
+  Word-break: break-Word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+}
+
+.mat-column-select{
+  text-align: center;
+}
+
+th{
+    text-align: center;
+}
+
+td, th {
+  width: 25%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.table-container {
+  max-height: calc(100vh - 155px); /**or height:calc(100vh - 155px); depending on your need  change*/
+  overflow: auto;
+}

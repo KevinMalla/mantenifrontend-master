@@ -1,0 +1,12 @@
+<div class="px-1 bg-light h-100 d-flex flex-column rounded-3" cdkDropList [cdkDropListData]="list.ordenes" *ngIf="tipoUsuario==1 || tipoUsuario==2 || tipoUsuario==3 || tipoUsuario==3|| tipoUsuario==4 || tipoUsuario==5 ||(tipoUsuario==6 && (list.nombre=='Pendientes' || list.nombre=='Terminadas') )"
+    (cdkDropListDropped)="drop($event)" [cdkDropListDisabled]="tipoUsuario==3" id="{{list.nombre}}">
+    <div class="sticky-top bg-light d-flex align-items-center justify-content-center"
+        style="z-index: 4; height: 50px; width: 100%;">
+        <div class="bg-transparent">
+            <strong class="h5">{{ list.nombre }} </strong><span
+                class="badge rounded-pill bg-dark">{{list.ordenes.length}}</span>
+        </div>
+    </div>
+    <app-card-correctiva *ngFor="let item of list.ordenes" [item]="item" cdkDrag [cdkDragData]="item"
+            (abrir)="handleAbrir(item)" (eliminar)="handleEliminar(item)"></app-card-correctiva>
+</div>

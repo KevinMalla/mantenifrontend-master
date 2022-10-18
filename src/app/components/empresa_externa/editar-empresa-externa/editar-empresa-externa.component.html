@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row w-100">
+        <div class="col-12">
+            <form>
+                <h1 class="text-center" mat-dialog-title>Editar Empresa Externa</h1>
+                <mat-dialog-content>
+                    <p>Nombre</p>
+                    <mat-form-field class="w-100">
+                        <input matInput type="text" name="nombre" [(ngModel)]="empresaExterna.nombre">
+                    </mat-form-field>
+                    <p>Descripción</p>
+                    <mat-form-field class="w-100">
+                        <input matInput type="text" name="descripcion" [(ngModel)]="empresaExterna.descripcion">
+                    </mat-form-field>
+                </mat-dialog-content>
+            </form>
+        </div>
+    </div>
+
+    <div class="row w-100">
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+                <button mat-raised-button class="bg-success" [mat-dialog-close]="empresaExterna">Editar</button>
+                <button mat-raised-button class="bg-danger" (click)="cancelar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+</div>

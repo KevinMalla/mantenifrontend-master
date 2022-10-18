@@ -1,0 +1,222 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mt-5 d-flex align-items-center">
+            <div class="mat-elevation-z8 data-table rounded-3">
+                <mat-horizontal-stepper [orientation]="(stepperOrientation | async)!" #stepper>
+                    <mat-step [stepControl]="firstFormGroup">
+                        <form *ngIf="nuevaPlanta==false" [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Planta</ng-template>
+                                <mat-form-field class="control">
+                                    <mat-label>Planta</mat-label>
+                                    <mat-select formControlName="firstCtrl" (selectionChange)="onChangePlanta($event.value)" required>
+                                        <mat-option *ngFor="let item of plantas" [value]="item">
+                                            {{item.Denominacion}} - {{item.Descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button mat-raised-button [disabled]="firstFormGroup.invalid" matStepperNext>Siguiente</button>
+                                <button type="button" mat-raised-button (click)="nuevaPlanta=true">Nueva</button>
+                                <button mat-raised-button [disabled]="firstFormGroup.invalid || areas.length>0" (click)="eliminarPlanta()">Eliminar</button>
+                                <button mat-raised-button [disabled]="firstFormGroup.invalid" (click)="editarPlanta(firstFormGroup.controls.firstCtrl.value)">Editar</button>
+                        </form>
+                        <form *ngIf="nuevaPlanta" [formGroup]="PlantaFormGroup">
+                            <mat-form-field class="control">
+                                <input matInput placeholder="Introduce denominación de planta" formControlName="Denominacion" required>
+                            </mat-form-field>
+                            <mat-form-field class="control">
+                                <input matInput placeholder="Introduce descripción de planta" formControlName="Descripcion" required>
+                            </mat-form-field>
+                            <button type="button" mat-raised-button [disabled]="PlantaFormGroup.invalid"
+                                (click)="crearPlanta()">Crear</button>
+                            <button mat-raised-button class="bg-danger" (click)="nuevaPlanta=false">Cancelar</button>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup">
+                        <form [formGroup]="secondFormGroup" *ngIf="nuevaArea==false">
+                            <ng-template matStepLabel>Área</ng-template>
+                                <mat-form-field class="control">
+                                    <mat-label>Área</mat-label>
+                                    <mat-select formControlName="secondCtrl" (selectionChange)="onChangeArea($event.value)" required>
+                                        <mat-option *ngFor="let item of areas" [value]="item">
+                                            {{item.Denominacion}} - {{item.Descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button mat-raised-button (click)="resetForm(AreaFormGroup); resetForm(secondFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="secondFormGroup.invalid" matStepperNext>Siguiente</button>
+                                <button type="button" mat-raised-button (click)="nuevaArea=true">Nueva</button>
+                                <button mat-raised-button [disabled]="secondFormGroup.invalid || zonas.length>0" (click)="eliminarArea()">Eliminar</button>
+                                <button mat-raised-button [disabled]="secondFormGroup.invalid" (click)="editarArea(secondFormGroup.controls.secondCtrl.value)">Editar</button>
+                        </form>
+                        <form [formGroup]="AreaFormGroup" *ngIf="nuevaArea">
+                            <mat-form-field class="control">
+                                <input matInput placeholder="Introduce denominación de area" formControlName="Denominacion"
+                                    required>
+                            </mat-form-field>
+                            <mat-form-field class="control">
+                                <input matInput placeholder="Introduce descripción de area" formControlName="Descripcion"
+                                    required>
+                            </mat-form-field>
+                            <button type="button"mat-raised-button [disabled]="AreaFormGroup.invalid"
+                                (click)="crearArea()">Crear</button>
+                            <button mat-raised-button class="bg-danger" (click)="nuevaArea=false">Cancelar</button>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="thirdFormGroup">
+                        <form [formGroup]="thirdFormGroup" *ngIf="nuevaZona==false">
+                            <ng-template matStepLabel>Zona</ng-template>
+                                <mat-form-field class="control">
+                                    <mat-label>Zona</mat-label>
+                                    <mat-select formControlName="thirdCtrl" (selectionChange)="onChangeZona($event.value)" required>
+                                        <mat-option *ngFor="let item of zonas" [value]="item">
+                                            {{item.Denominacion}} - {{item.Descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button mat-raised-button (click)="resetForm(thirdFormGroup); resetForm(ZonaFormGroup)" matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="thirdFormGroup.invalid" matStepperNext>Siguiente</button>
+                                <button type="button" mat-raised-button (click)="nuevaZona=true">Nueva</button>
+                                <button mat-raised-button [disabled]="thirdFormGroup.invalid || secciones.length>0" (click)="eliminarZona()">Eliminar</button>
+                                <button mat-raised-button [disabled]="thirdFormGroup.invalid" (click)="editarZona(thirdFormGroup.controls.thirdCtrl.value)">Editar</button>
+                        </form>
+                        <form [formGroup]="ZonaFormGroup" *ngIf="nuevaZona">
+                            <mat-form-field class="control">
+                                <input matInput placeholder="Introduce denominación de zona" formControlName="Denominacion"
+                                    required>
+                            </mat-form-field>
+                            <mat-form-field class="control">
+                                <input matInput placeholder="Introduce descripción de zona" formControlName="Descripcion"
+                                    required>
+                            </mat-form-field>
+                            <button type="button" mat-raised-button [disabled]="ZonaFormGroup.invalid"
+                                (click)="crearZona()">Crear</button>
+                            <button mat-raised-button class="bg-danger" (click)="nuevaZona=false;">Cancelar</button>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="fourthFormGroup">
+                        <form [formGroup]="fourthFormGroup" *ngIf="nuevaSeccion==false">
+                            <ng-template matStepLabel>Sección</ng-template>
+                                <mat-form-field class="control">
+                                    <mat-label>Sección</mat-label>
+                                    <mat-select formControlName="fourthCtrl" (selectionChange)="onChangeSeccion($event.value)" required>
+                                        <mat-option *ngFor="let item of secciones" [value]="item">
+                                            {{item.Denominacion}} - {{item.Descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button mat-raised-button (click)="resetForm(fourthFormGroup); resetForm(SeccionFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button  [disabled]="fourthFormGroup.invalid" matStepperNext>Siguiente</button>
+                                <button type="button" mat-raised-button (click)="nuevaSeccion=true">Nueva</button>
+                                <button mat-raised-button [disabled]="fourthFormGroup.invalid || codigos.length>0" (click)="eliminarSeccion()">Eliminar</button>
+                                <button mat-raised-button [disabled]="fourthFormGroup.invalid" (click)="editarSeccion(fourthFormGroup.controls.fourthCtrl.value)">Editar</button>
+                        </form>
+                        <form [formGroup]="SeccionFormGroup" *ngIf="nuevaSeccion">
+                            <mat-form-field class="control">
+                                <input matInput placeholder="Introduce descripción de sección" formControlName="Denominacion"
+                                    required>
+                            </mat-form-field>
+                                <mat-form-field class="control">
+                                    <input matInput placeholder="Introduce descripción de sección" formControlName="Descripcion"
+                                        required>
+                                </mat-form-field>
+                                <button type="button" mat-raised-button [disabled]="SeccionFormGroup.invalid"
+                                    (click)="crearSeccion()">Crear</button>
+                                <button mat-raised-button class="bg-danger" (click)="nuevaSeccion=false">Cancelar</button>                            
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="fifthFormGroup"> 
+                        <form [formGroup]="fifthFormGroup"*ngIf="nuevaCodigo==false">
+                            <ng-template matStepLabel>Código</ng-template>
+                                <mat-form-field class="control">
+                                    <mat-label>Código</mat-label>
+                                    <mat-select formControlName="fifthCtrl" (selectionChange)="onChangeCodigo($event.value)" required>
+                                        <mat-option *ngFor="let item of codigos" [value]="item">
+                                            {{item.Denominacion}} - {{item.Descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button mat-raised-button (click)="resetForm(fifthFormGroup); resetForm(CodigoFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button  [disabled]="fifthFormGroup.invalid" matStepperNext>Siguiente</button>
+                                <button type="button" mat-raised-button (click)="nuevaCodigo=true">Nueva</button>
+                                <button mat-raised-button [disabled]="fifthFormGroup.invalid || grupos.length>0" (click)="eliminarCodigo()">Eliminar</button>
+                                <button mat-raised-button [disabled]="fifthFormGroup.invalid" (click)="editarCodigo(fifthFormGroup.controls.fifthCtrl.value)">Editar</button>
+                        </form>
+                        <form [formGroup]="CodigoFormGroup" *ngIf="nuevaCodigo">
+                                <mat-form-field class="control">
+                                    <input matInput placeholder="Introduce denominación de codigo" formControlName="Denominacion"
+                                        required>
+                                </mat-form-field>
+                                <mat-form-field class="control">
+                                    <input matInput placeholder="Introduce descripción de codigo" formControlName="Descripcion"
+                                        required>
+                                </mat-form-field>
+                                <button type="button" mat-raised-button [disabled]="CodigoFormGroup.invalid"
+                                    (click)="crearCodigo()">Crear</button>
+                                <button mat-raised-button class="bg-danger" (click)="nuevaCodigo=false">Cancelar</button>                                
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="sixthFormGroup">
+                        <form [formGroup]="sixthFormGroup" *ngIf="nuevoGrupo==false">
+                            <ng-template matStepLabel>Grupo</ng-template>
+                                <mat-form-field class="control">
+                                    <mat-label>Grupo</mat-label>
+                                    <mat-select formControlName="sixthCtrl" (selectionChange)="onChangeGrupo($event.value)" required>
+                                        <mat-option *ngFor="let item of grupos" [value]="item">
+                                            {{item.Denominacion}} - {{item.Descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button mat-raised-button (click)="resetForm(sixthFormGroup); resetForm(GrupoFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button  [disabled]="sixthFormGroup.invalid" matStepperNext>Siguiente</button>
+                                <button type="button" mat-raised-button (click)="nuevoGrupo=true">Nueva</button>
+                                <button mat-raised-button [disabled]="sixthFormGroup.invalid || equipos.length>0" (click)="eliminarGrupo()">Eliminar</button>
+                                <button mat-raised-button [disabled]="sixthFormGroup.invalid" (click)="editarGrupo(sixthFormGroup.controls.sixthCtrl.value)">Editar</button>
+                        </form>
+                        <form [formGroup]="GrupoFormGroup" *ngIf="nuevoGrupo">
+                                <mat-form-field class="control">
+                                    <input matInput placeholder="Introduce denominación de grupo" formControlName="Denominacion"
+                                        required>
+                                </mat-form-field>
+                                <mat-form-field class="control">
+                                    <input matInput placeholder="Introduce descripción de grupo" formControlName="Descripcion"
+                                        required>
+                                </mat-form-field>
+                                <button type="button" mat-raised-button [disabled]="GrupoFormGroup.invalid"
+                                    (click)="crearGrupo()">Crear</button>
+                                <button mat-raised-button class="bg-danger" (click)="nuevoGrupo=false">Cancelar</button>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="seventhFormGroup">
+                        <form [formGroup]="seventhFormGroup" *ngIf="nuevoEquipo==false">
+                            <ng-template matStepLabel>Equipo</ng-template>
+                                <mat-form-field class="control">
+                                    <mat-label>Equipo</mat-label>
+                                    <mat-select formControlName="seventhCtrl" (selectionChange)="onChangeEquipo($event.value)" required>
+                                        <mat-option *ngFor="let item of equipos" [value]="item">
+                                            {{item.Denominacion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <button mat-raised-button (click)="resetForm(seventhFormGroup);resetForm(EquipoFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                                <button type="button" mat-raised-button (click)="nuevoEquipo=true">Nueva</button>
+                                <button mat-raised-button [disabled]="seventhFormGroup.invalid" (click)="eliminarEquipo()">Eliminar</button>
+                                <button mat-raised-button [disabled]="seventhFormGroup.invalid" (click)="editarEquipo(seventhFormGroup.controls.seventhCtrl.value)">Editar</button>
+                        </form>
+                        <form [formGroup]="EquipoFormGroup" *ngIf="nuevoEquipo">
+                                <mat-form-field class="control">
+                                    <input matInput placeholder="Introduce denominación de equipo" formControlName="Denominacion" required>
+                                </mat-form-field>
+                                <button type="button" mat-raised-button [disabled]="EquipoFormGroup.invalid" (click)="crearEquipo(seventhFormGroup.controls.seventhCtrl.value)">Crear</button>
+                                <button mat-raised-button class="bg-danger" (click)="nuevoEquipo=false">Cancelar</button>                            
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+    </div>
+</div>

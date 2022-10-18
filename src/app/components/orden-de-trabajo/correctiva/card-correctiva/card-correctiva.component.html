@@ -1,0 +1,38 @@
+<div class="card rounded-3 border-0 mb-1 mat-elevation-z1 position-relative" cdkDrag
+    [cdkDragData]="item" (click)="abrirOrden()">
+        <div class="card-header py-1 px-0 border-0 bg-transparent font-weight-bold">
+            <div class="text-center">
+                <span>{{item.OrdenId}}. {{item.TituloCorrectivo}}</span>                          
+            </div>
+        </div>
+        <div class="card-body text-dark px-2 py-1">
+            <h5 class="card-title h6 m-0"
+                [ngClass]="{'text-success': item.PrioridadId===1,'text-secondary': item.PrioridadId===2,'text-warning': item.PrioridadId===3,'text-danger': item.PrioridadId===4}">
+                {{item.UbicacionTecnica}}</h5>
+            <p class="card-text">
+                Persona Responsable: {{item.PersonaResponsable}}
+                <br>
+            <ng-container [ngSwitch]="item.EstadoId">
+                <span *ngSwitchCase="1" class="text-muted fs-6">Creada el {{item.FechaCreacion | date: 'fullDate'}}</span>
+                <span *ngSwitchCase="2" class="text-muted fs-6">Asignada el {{item.FechaPendiente | date: 'fullDate'}} a {{item.Operario}}</span>
+                <span *ngSwitchCase="3" class="text-muted fs-6">Terminada el {{item.FechaTerminado | date: 'fullDate'}} por {{item.Operario}}</span>
+                <span *ngSwitchCase="4" class="text-muted fs-6">Validada el {{item.FechaValidado | date: 'fullDate'}} </span>
+            </ng-container>
+            </p>
+        </div>
+        <div class="card-footer p-0 border-0 m-0 bg-transparent d-flex flex-row-reverse" >
+            <div class="pe-3">
+            <ng-container [ngSwitch]="item.PrioridadId">
+                <i *ngSwitchCase="4" class="bi bi-exclamation-triangle-fill text-danger fs-5"></i>
+                <i *ngSwitchCase="3" class="bi bi-caret-up-fill text-warning fs-5"></i>
+                <i *ngSwitchCase="2" class="fs-5"><fa-icon [icon]="faEquals"></fa-icon></i>
+                <i *ngSwitchCase="1" class="bi bi-caret-down-fill text-success fs-5"></i>
+            </ng-container>            
+            </div>
+            <div>
+                <button *ngIf="tipoUsuario==1 || tipoUsuario==5" matTooltip="Eliminar orden" matTooltipPosition="above" mat-icon-button (click)="eliminarOrden(item.OrdenId, $event)">
+                <mat-icon class="mb-2 text-danger fs-4" aria-label="icon-button to remove">delete_outline</mat-icon>
+                </button>   
+            </div>
+        </div>
+</div>

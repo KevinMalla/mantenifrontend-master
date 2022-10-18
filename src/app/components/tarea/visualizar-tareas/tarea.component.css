@@ -1,0 +1,48 @@
+.full-width-table {
+    width: 100%;    
+  }
+.data-table{
+  width: 80%;
+  margin: 20px auto;
+  padding: 1%;
+  background-color: white
+}
+.data-table .mat-form-field {
+  font-size: 14px;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.mat-raised-button{
+  background-color: #ff8c00;
+  color: white;
+}
+table {
+  width: 100%;
+}
+td, th {
+  width: 25%;
+}
+.mat-column-Estado
+{
+  text-align:center;
+}
+
+.mat-column-TareaId , .mat-column-Descripcion, .mat-column-Estado,.mat-column-acciones
+{
+  padding-right: 1%;
+  Word-wrap: break-Word !important;
+  white-space: unset !important;
+  flex: 0 0 25% !important;
+  width: 25% !important;
+  overflow-wrap: break-Word;
+  Word-wrap: break-Word;
+
+  Word-break: break-Word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+}

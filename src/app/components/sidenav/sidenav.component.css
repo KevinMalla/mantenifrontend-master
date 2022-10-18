@@ -1,0 +1,45 @@
+.barra {
+    background: rgb(255,140,0);
+    background: linear-gradient(0deg, rgba(255,140,0,1) 0%, rgba(211,211,211,1) 100%);
+    color: black;
+    width: 15.5%;
+    border: none;
+}
+
+.texto {
+    color: black;
+}
+
+.panel {
+    background-color: #ffffff;
+}
+
+.mat-raised-button {
+    width: 100%;
+    background-color: #ffffff;
+    color: #1b1414;
+    text-align: left
+}
+
+.mat-raised-button:active {
+    box-decoration-break: initial
+}
+
+span {
+    margin-left: 10px
+}
+
+.imagen {
+    /* background: url("https://procesodesoporte.files.wordpress.com/2016/11/services-web-development-services-380x380.png"); */
+    /* Fijar la imagen de fondo este vertical y
+    horizontalmente y centrado */
+    background-position: center center;
+    /* Esta imagen no debe de repetirse */
+    background-repeat: no-repeat;
+    /* COn esta regla fijamos la imagen en la pantalla. */
+    background-attachment: fixed;
+    /* La imagen ocupa el 100% y se reescala */
+    background-size: 20%;
+    /* Damos un color de fondo mientras la imagen está cargando  */
+    background-color:whitesmoke;
+}

@@ -1,0 +1,12 @@
+<div class="container-fluid h-100" cdkDropListGroup>
+    <div class="row">
+        <div class="col-12">
+            <h2 class="h2 text-center">ORDENES CORRECTIVAS</h2>
+        </div>
+    </div>
+    <div class="row overflow-auto h-100">
+        <div class="col-3 px-1" *ngFor="let list of lists" >
+            <app-list [list]="list" (abrir)="abrirOrden($event)" (eliminar)="eliminarOrden($event)" (dropped)="actualizar($event)"></app-list>
+        </div>
+    </div>
+</div>

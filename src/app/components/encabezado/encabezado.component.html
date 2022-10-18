@@ -1,0 +1,68 @@
+<!-- Login -->
+<div [ngClass]="{'fondo': login == false}" *ngIf="login == false">
+    <div class="row">
+        <div class="mat-elevation-z8 data-table col-md-4 offset-md-4">
+            <form [formGroup]="form">
+            <!-- Planta -->
+            <mat-form-field>
+                <mat-label>Planta</mat-label>
+                <mat-select formControlName="planta" required>
+                    <mat-option *ngFor="let item of plantas" [value]="item.Codigo">
+                        {{item.Descripcion}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- Trabajador -->
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Codigo de operario" formControlName="trabajador" required/>
+            </mat-form-field>
+            <!-- Contraseña -->
+            <mat-form-field class="example-full-width" *ngIf="pedirContrasenia==true">
+                <input matInput type="password" id="password" placeholder="Contraseña" formControlName="password" (keyup.enter)="signin(trabajador, password)" required/>
+            </mat-form-field>                  
+            <button mat-raised-button class="login" id="iniciar" (click)="iniciar()">Aceptar</button>
+            <button mat-raised-button class="login" (click)="signin(trabajador, password)" *ngIf="pedirContrasenia==true">Continuar</button>          
+            </form>
+            <div class="mt-2 d-flex flex-row-reverse ">
+            <a href="#" *ngIf="pedirContrasenia==true" (click)="nueva = true">Cambiar contraseña</a>                
+            </div>
+            <form [formGroup]="form2" *ngIf="nueva" >
+                <!-- Nueva -->
+                <mat-form-field>
+                    <input matInput type="password" placeholder="Introduce la nueva contraseña" formControlName="password1" required/>                    
+                </mat-form-field>
+                <!-- Confirmar -->
+                <mat-form-field>                   
+                    <input matInput type="password" placeholder="Vuelva a introducir la contraseña" formControlName="password2" required/>                 
+                </mat-form-field>
+                <button class="btn btn-secondary" *ngIf="nueva" (click)="nueva = false">Cancelar</button>
+                <button class="btn btn-success m-1" *ngIf="nueva" (click)="changePassword()" >Cambiar contraseña</button>             
+            </form>
+        </div>
+    </div> 
+</div>
+<!-- Encabezado -->
+<div id="main" class="container-fluid p-0 m-0" *ngIf="login == true">
+    <mat-toolbar style="background-color: lightgray ">
+        <div class="row">
+            <div class="col-md-2 col-sm-4">
+                <mat-toolbar-row style="background-color: lightgray">
+                    <div class="logo">
+                        <img class="logo" src="assets/Imagenes/presentacion.png" />
+                    </div>
+                </mat-toolbar-row>
+            </div>
+            <div class="col-md-8 col-sm-8">
+                <mat-toolbar-row>
+                    <div class="operario rounded-3">
+                        <h1>{{nombre}}</h1>
+                    </div>
+                </mat-toolbar-row>
+            </div>
+            <div class="col-md-2 col-sm-1 logout">
+                <button *ngIf='this.login == true' mat-raised-button (click)="cerrar()"><mat-icon>exit_to_app</mat-icon><span class="text-break" style="margin-left: 2px">Cerrar sesión</span></button>
+           </div>
+        </div>
+    </mat-toolbar>
+    <app-sidenav [planta]="planta" [trabajador]="trabajador" [tipo]="tipo"></app-sidenav>
+</div>

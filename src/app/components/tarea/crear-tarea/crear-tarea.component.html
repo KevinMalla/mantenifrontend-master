@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row w-100">
+        <div class="col-12">
+            <form [formGroup]="form">
+                <h1  class="text-center" mat-dialog-title>Tarea</h1>
+                <mat-dialog-content>
+                <ng-container formArrayName="tareas">
+                <ng-container *ngFor="let tareaForm of tareas.controls; let i = index">
+                    <div [formGroup]="tareaForm">
+                        <mat-form-field appearance="standard" class="w-100"><input matInput formControlName="desc" type="text" placeholder="Descripción de tarea {{i+1}}" required>
+                        </mat-form-field>
+                        <button mat-raised-button *ngIf="tareas.length > 1" (click)="deleteTarea(i)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </div>
+                    </ng-container>
+                    </ng-container>
+                </mat-dialog-content>
+            </form>
+        </div>
+    </div>
+    <div class="row w-100">
+        <div class="d-flex flex-row-reverse">
+            <button mat-mini-fab style="margin-bottom: 10px;" (click)="addTarea()"><mat-icon>add</mat-icon></button>
+        </div>
+    </div>
+    <div class="row w-100">
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+                <button mat-raised-button [mat-dialog-close]="tareasI"
+                [disabled]="form.invalid || tareas.length == 0"
+                (click)="confirmar()">Añadir</button>
+                <button class="bg-danger" mat-raised-button (click)="cancelar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

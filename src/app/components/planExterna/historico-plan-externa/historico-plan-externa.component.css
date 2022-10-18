@@ -1,0 +1,17 @@
+.label-schema {
+    color: gray;
+    font-weight:bolder;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.title {
+    color: #ff8c00;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 2em;
+}
+
+.mat-sort-header-container {
+    align-items: center;
+}

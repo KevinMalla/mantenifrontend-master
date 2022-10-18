@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <h1 class="title">Panel Plan Externas</h1>
+        <h1 class="label-schema"><!--<a><i class="bi bi-caret-left-fill"></i></a>--> {{anoActual}} - {{anoActual+1}} <!--<a><i class="bi bi-caret-right-fill"></i></a>--></h1>
+        <div class="col-md"></div>
+        <div class="col-md-12 text-center animate__animated animate__flipInY">
+            <div class="calendario py-3">
+
+                <!-- FILA -->
+
+                <div class="row" *ngFor="let fila of panel | keyvalue" > <!-- El número de filas del panel. 3 filas con 4 columnas. 12 meses. Soy Batman -->
+                    
+                    <div class="col" *ngFor="let mes of fila.value">
+                        <a class="tarjeta-calendario">
+                            <div class="card mb-3" style="max-width: 18rem;">
+                                <div class="card-header">{{mes}}</div>
+                                <div class="card-body text-left">
+                                    <ul *ngFor="let plan of planesPendientes[mes]">
+                                        <a (click)="openDialog(plan.id)"><p class="empresa">{{plan.empresa}} - Día {{plan.dia}}</p></a>
+                                      </ul>
+                                </div>
+                              </div>    
+                        </a>  
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md"></div>
+    </div>
+    <br>
+
+</div>

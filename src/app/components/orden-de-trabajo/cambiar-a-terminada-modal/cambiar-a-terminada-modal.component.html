@@ -1,0 +1,143 @@
+<div class="data-table">
+    <table class="table" [formGroup]="terminada">
+        <tbody>
+            <tr>
+                <td><img src="assets/Imagenes/logo.png" height="100" /></td>
+                <td colspan="2">
+                    <h2>ORDEN DE TRABAJO</h2>
+                </td>
+                <td>
+                    <h4>ORDEN Nº {{data.orden.OrdenId}}</h4>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">TIPO DE ORDEN</td>
+                <td>{{data.orden.Tipo}}</td>
+                <td class="label">UBICACION TECNICA</td>
+                <td style="width: 30%;">
+                    <p class="text-break">{{data.orden.UbicacionTecnica}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">PRIORIDAD</td>
+                <td>{{data.orden.Prioridad}}</td>
+                <td class="label">EQUIPO</td>
+                <td>{{data.orden.Equipo}}</td>
+            </tr>
+            <tr>
+                <td class="label">P. RESPONSABLE</td>
+                <td>{{data.orden.PersonaResponsable}}</td>
+                <td class="label">LOCALIZACION</td>
+                <td>{{data.orden.Localizacion}}</td>
+            </tr>
+            <tr>
+                <td class="label">FECHA CREACION</td>
+                <td>{{data.orden.FechaCreacion | date}}</td>
+                <td class="label">PREVENTIVO</td>
+                <td>{{data.orden.Preventivo}}</td>
+
+            </tr>
+            <ng-container *ngIf="data.orden.TipoId==1">
+                <tr>
+                    <td class="label">PRÓXIMA REVISIÓN</td>
+                    <td>{{proximaRevi | date}}</td>
+                    <td class="label">TAREAS</td>
+                    <td><button type="button" class="btn btn-light" (click)="abrirListadoTareas()"><i
+                                class="bi bi-card-checklist"></i> Listado</button>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="data.orden.TipoId==2">
+                <tr>
+                    <td colspan="4" class="label">DESCRIPCIÓN CORRECTIVO</td>
+                </tr>
+                <tr>
+                    <td colspan="4">{{data.orden.DescripcionCorrectivo}}</td>
+                </tr>
+            </ng-container>
+            <tr>
+                <td colspan="3" class="label">COMENTARIO</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="p-0">
+                    <textarea class="form-control" formControlName="Comentario"
+                        [readOnly]="data.modo=='Editar' && (tipoUsuario!=1 && tipoUsuario !=5 && tipoUsuario !=6)"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="label">COMENTARIO DEL RESPONSABLE DE MANTENIMIENTO</td>
+                <td class="label" colspan="1">TIEMPO EMPLEADO (Minutos)</td>
+            </tr>
+            <tr>
+                <ng-container [ngSwitch]="tipoUsuario">
+                    <td colspan="3" class="p-0">
+                        <textarea *ngSwitchCase="5" class="form-control"
+                            formControlName="ComentarioResponsable"></textarea>
+                        <textarea *ngSwitchCase="1" class="form-control"
+                            formControlName="ComentarioResponsable"></textarea>
+                        <textarea *ngSwitchDefault class="form-control"
+                            readOnly>{{data.orden.ComentarioResponsable}}</textarea>
+                    </td>
+                </ng-container>
+                <td colspan="1"><input type=number class="form-control" formControlName="TiempoEmpleado"
+                        [readOnly]="data.modo=='Editar' && (tipoUsuario!=1 && tipoUsuario !=5 && tipoUsuario !=6)"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table" *ngIf="tipoUsuario==1 || tipoUsuario==5 || tipoUsuario==6">
+        <tbody>
+            <tr>
+                <td class="label" colspan="1">OPERARIO</td>
+                <td class="label" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <p><b>Actual: </b>{{data.orden.Operario}}</p>
+                    <ng-select [(ngModel)]="operario" class="w-100">
+                        <ng-option *ngFor="let operario of operarios" #operario [value]="operario">
+                            {{operario.Codigo}} - {{operario.Nombre}}</ng-option>
+                    </ng-select>
+                </td>
+                <td colspan="2">
+                    <button class="" mat-raised-button (click)="actualizarOperarioDeOrden(data.orden.OrdenId, operario)">Actualizar Operario</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" colspan="2">MATERIAL</td>
+                <td class="label">CANTIDAD</td>
+                <td class="label">ACCIONES</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="w-100">
+                    <ng-select [(ngModel)]="material" class="w-100">
+                        <ng-option *ngFor="let material of materiales" [value]="material">
+                            {{material.Material}}-{{material.Descripcion}}</ng-option>
+                    </ng-select>
+                </td>
+                <td>
+                    <input class="border-0 text-center" type="number" id="cantidad" name="cantidad" min="1"
+                        [(ngModel)]="cantidad">
+                </td>
+                <td>
+                    <div class="d-flex">
+                        <button type="button" class="btn btn-success" (click)="agregarMaterial()"><i
+                                class="bi bi-plus-lg"></i></button>
+                        <button type="button" class="btn btn-light ms-2" (click)="verDetalleGasto()"><i
+                                class="bi bi-eye-fill"></i></button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row w-100">
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+
+                <button mat-raised-button [mat-dialog-close]="terminada.value" [disabled]="terminada.invalid"
+                    *ngIf="data.modo=='Terminar' || (data.modo=='Editar' && (tipoUsuario==1 || tipoUsuario ==5 || tipoUsuario ==6) )">{{data.modo}}</button>
+
+                <button class="bg-danger" mat-raised-button (click)="cancelar()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

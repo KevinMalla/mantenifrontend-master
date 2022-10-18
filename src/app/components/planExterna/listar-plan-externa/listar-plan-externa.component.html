@@ -1,0 +1,48 @@
+
+
+<div class="container">
+
+    <div class="row justify-content-center">
+        
+        <div class="col-auto">
+            <h1 class="text-center title">Listado Planes Externos</h1>
+            <!--<div class="list-panel d-flex justify-content-center rounded shadow p-3 mb-5 bg-white rounded animate__animated animate__zoomIn">-->
+                <table id="listado_pedidos" class="text-center styled-table animate__animated animate__fadeInLeft table-responsive">
+                    <thead>
+                        <tr class="text-center">
+ 
+                            <th>Empresa</th>
+                            <th>Descripción</th>
+                            <th>Periodicidad</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let plan of listadoPlanExternas; let index=index">
+
+                            <td><p>{{plan.Empresa}}</p></td>
+                            <td><p>{{plan.Descripcion}}</p></td>
+                            <td><p>{{plan.Periodicidad}}</p></td>
+                            <td><p>{{plan.Fecha}}</p></td>
+                            <td><p>{{plan.Estado}}</p></td>
+                            <td>
+                                <button mat-raised-button (click)="editar(plan)" class=""><i class="bi bi-pencil-square"></i></button>
+                            </td>
+                            <td>
+                                <button mat-raised-button (click)="borrar(plan)" class=""><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            <!--</div>-->
+
+    </div>
+
+    </div>
+</div>
+
+

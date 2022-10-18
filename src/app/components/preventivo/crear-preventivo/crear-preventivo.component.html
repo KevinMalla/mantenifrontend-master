@@ -1,0 +1,262 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">          
+            <div class="mat-elevation-z8 data-table">
+                <mat-horizontal-stepper [orientation]="(stepperOrientation | async)!" #stepper>
+                    <mat-step [stepControl]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Planta</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Planta</mat-label>
+                                <mat-select formControlName="firstCtrl"
+                                    (selectionChange)="onChange('Planta',$event.value)" required>
+                                    <mat-option *ngFor="let item of plantas" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button [disabled]="!firstCtrl || areas.length==0"
+                                    matStepperNext>Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>Área</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Área</mat-label>
+                                <mat-select formControlName="secondCtrl"
+                                    (selectionChange)="onChange('Area',$event.value)">
+                                    <mat-option *ngFor="let item of areas" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(secondFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!secondCtrl || zonas.length==0"
+                                    matStepperNext>Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="thirdFormGroup">
+                        <form [formGroup]="thirdFormGroup">
+                            <ng-template matStepLabel>Zona</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Zona</mat-label>
+                                <mat-select formControlName="thirdCtrl"
+                                    (selectionChange)="onChange('Zona',$event.value)">
+                                    <mat-option *ngFor="let item of zonas" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(thirdFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!thirdCtrl || secciones.length==0"
+                                    matStepperNext>Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="fourthFormGroup">
+                        <form [formGroup]="fourthFormGroup">
+                            <ng-template matStepLabel>Sección</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Sección</mat-label>
+                                <mat-select formControlName="fourthCtrl"
+                                    (selectionChange)="onChange('Seccion',$event.value)">
+                                    <mat-option *ngFor="let item of secciones" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(fourthFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!fourthCtrl || codigos.length==0"
+                                    matStepperNext>Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="fifthFormGroup">
+                        <form [formGroup]="fifthFormGroup">
+                            <ng-template matStepLabel>Código</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Código</mat-label>
+                                <mat-select formControlName="fifthCtrl"
+                                    (selectionChange)="onChange('Codigo',$event.value)">
+                                    <mat-option *ngFor="let item of codigos" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(fifthFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!fifthCtrl || grupos.length==0"
+                                    matStepperNext>Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="sixthFormGroup">
+                        <form [formGroup]="sixthFormGroup">
+                            <ng-template matStepLabel>Grupo</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Grupo</mat-label>
+                                <mat-select formControlName="sixthCtrl"
+                                    (selectionChange)="onChange('Grupo',$event.value)">
+                                    <mat-option *ngFor="let item of grupos" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(sixthFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!sixthCtrl" matStepperNext>Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="seventhFormGroup">
+                        <form [formGroup]="seventhFormGroup">
+                            <ng-template matStepLabel>Equipo</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Equipo</mat-label>
+                                <mat-select formControlName="seventhCtrl"
+                                    (selectionChange)="onChange('Equipo',$event.value)">
+                                    <mat-option *ngFor="let item of equipos" [value]="item">
+                                        {{item.Denominacion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(seventhFormGroup)"
+                                    matStepperPrevious>Anterior</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+                <div class="d-flex">
+                    <p class="m-3" *ngIf="firstCtrl"><strong>Planta: </strong>{{firstCtrl.Denominacion}}</p>
+                    <p class="m-3" *ngIf="secondCtrl"><strong>Área: </strong>{{secondCtrl.Denominacion}}</p>
+                    <p class="m-3" *ngIf="thirdCtrl"><strong>Zona: </strong>{{thirdCtrl.Descripcion}}</p>
+                    <p class="m-3" *ngIf="fourthCtrl"><strong>Sección: </strong>{{fourthCtrl.Descripcion}}</p>
+                    <p class="m-3" *ngIf="fifthCtrl"><strong>Código: </strong>{{fifthCtrl.Descripcion}}</p>
+                    <p class="m-3" *ngIf="sixthCtrl"><strong>Grupo: </strong>{{sixthCtrl.Descripcion}}</p>
+                    <p class="m-3" *ngIf="seventhCtrl"><strong>Equipo: </strong>{{seventhCtrl.Denominacion}}</p>
+                </div>
+                <div class="row pt-3" [formGroup]="preventivoForm" *ngIf="nuevoPreventivo">
+                    <h3 class="text-center">Preventivo</h3>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>Nombre</mat-label><input matInput formControlName="nombre" type="text"
+                                required />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>Periodicidad</mat-label>
+                            <mat-select formControlName="periodicidad" required>
+                                <mat-option *ngFor="let per of periodicidades" [value]="per.PeriodicidadId">
+                                    {{per.Descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <input matInput [matDatepicker]="datepicker" formControlName="fecha"
+                                placeholder="Fecha (Opcional)" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker>
+                            </mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>Operario (Opcional)</mat-label>
+                            <mat-select formControlName="OperarioId">
+                                <mat-option *ngFor="let op of operarios" [value]="op.Codigo">
+                                    {{op.Nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row pt-3" [formGroup]="seleccionPreventivo" *ngIf="nuevoPreventivo==false">
+                    <div class="col-6">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <mat-label>Preventivo</mat-label>
+                            <mat-select (ngModelChange)="onChangePreventivo($event)" formControlName="preventivo">
+                                <mat-option *ngFor="let prev of preventivos" [value]="prev.PreventivoId">
+                                    {{prev.Descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field appearance="standard" class="w-100">
+                            <input matInput [matDatepicker]="datepicker" formControlName="fecha"
+                                placeholder="Fecha (Opcional)" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker>
+                            </mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <h3 class="text-center">Tareas</h3>
+                    <div class="col-12 mt-5" *ngIf="nuevoPreventivo">
+                        <div class="row">
+                            <div class="col-12"
+                                style="overflow-x:hidden ; overflow-y: auto; position: relative;  max-height: 25vh; width: 100%;">
+                                <form [formGroup]="form">
+                                    <mat-dialog-content>
+                                        <ng-container formArrayName="tareas">
+                                            <ng-container *ngFor="let tareaForm of tareas.controls; let i = index">
+                                                <div [formGroup]="tareaForm">
+                                                    <mat-form-field appearance="standard"><input matInput
+                                                            formControlName="desc" type="text"
+                                                            placeholder="Descripción de tarea {{i+1}}" required>
+                                                    </mat-form-field>
+                                                    <button mat-raised-button *ngIf="tareas.length > 1"
+                                                        (click)="deleteTarea(i)">
+                                                        <mat-icon>delete_forever</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </mat-dialog-content>
+                                </form>
+                            </div>
+                            <div class="row mw-100">
+                                <div class="d-flex flex-row-reverse">
+                                    <button mat-mini-fab style="margin-bottom: 10px;" (click)="addTarea()">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="nuevoPreventivo==false">
+                    <div class="col-12">
+                        <mat-nav-list>
+                            <mat-list-item *ngFor="let tarea of tareasPreventivo"> {{ tarea.Descripcion }}
+                            </mat-list-item>
+                        </mat-nav-list>
+                    </div>
+                </div>
+                <button
+                    [disabled]="(firstFormGroup.invalid || preventivoForm.invalid || form.invalid) && (firstFormGroup.invalid || seleccionPreventivo.invalid)"
+                    mat-raised-button (click)="crearPreventivo()">Crear Preventivo</button>
+                <button mat-raised-button
+                    (click)="nuevoPreventivo = !nuevoPreventivo">{{nuevoPreventivo ?  "Elegir preventivo" : "Preventivo
+                    nuevo"}}</button>
+            </div>
+        </div>
+    </div>
+</div>

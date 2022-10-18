@@ -1,0 +1,131 @@
+<div class="container">
+
+    <div class="row">
+        <p class="title text-center">Histórico</p>
+        <!-- <div class="col">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Año</mat-label>
+                <mat-select [ngModel]="selectedAno" (ngModelChange)="onChangeAno($event)">
+                    <mat-option *ngFor="let ano of anos" [value]="ano">
+                        {{ano}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Més</mat-label>
+                <mat-select [ngModel]="selectedMes" (ngModelChange)="onChangeMes($event)">
+                    <mat-option *ngFor="let mes of meses" [value]="mes">
+                        {{mes}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> -->
+        <div class="col">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Periodicidad</mat-label>
+                <mat-select [ngModel]="selectedPeriodicidad" (ngModelChange)="onChangePeriodicidad($event)">
+                    <mat-option [value]="defaultValue">Todas</mat-option>
+                    <mat-option *ngFor="let periodicidad of periodicidades" [value]="periodicidad.PeriodicidadId">
+                        {{periodicidad.Descripcion}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Estado</mat-label>
+                <mat-select [ngModel]="selectedEstado" (ngModelChange)="onChangeEstados($event)">
+                    <mat-option [value]="defaultValue">Todos</mat-option>
+                    <mat-option *ngFor="let estado of estados" [value]="estado">
+                        {{estado}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Empresa</mat-label>
+                <mat-select [ngModel]="selectedEmpresa" (ngModelChange)="onChangeEmpresaExterna($event)">
+                    <mat-option [value]="defaultValue">Todas</mat-option>
+                    <mat-option *ngFor="let empresa of empresas" [value]="empresa.id">
+                        {{empresa.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field appearance="standard" class="search-form-field w-100">
+                <input matInput (keyup)="applyFilter($event)" placeholder="Introducir filtro">
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"
+                    (click)="onSearchClear()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row justify-content-center text-center">
+
+        <div class="col">
+
+            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8 styled-table table-responsive">
+
+                <ng-container matColumnDef="empresa">
+                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header="Empresa">
+                        Empresa
+                    </th>
+                    <td mat-cell *matCellDef="let planExterna" class="text-center">{{planExterna.Empresa}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header="Fecha">
+                        Fecha
+                    </th>
+                    <td mat-cell *matCellDef="let planExterna">{{planExterna.Fecha.split('T')[0]}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="descripcion">
+                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header="Descripcion">
+                        Descripción
+                    </th>
+                    <td mat-cell *matCellDef="let planExterna">{{planExterna.Descripcion}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="periodicidad">
+                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header="Periodicidad">
+                        Periodicidad
+                    </th>
+                    <td mat-cell *matCellDef="let planExterna">{{planExterna.Periodicidad}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="proximaFecha">
+                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header="proximaFecha">
+                        Próxima Fecha
+                    </th>
+                    <td mat-cell *matCellDef="let planExterna">{{planExterna.proximaFecha}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header="Estado">
+                        Estado
+                    </th>
+                    <td mat-cell *matCellDef="let planExterna">{{planExterna.Estado}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+
+    </div>
+
+
+</div>

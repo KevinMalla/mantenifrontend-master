@@ -1,0 +1,224 @@
+<div class="container-fluid h-100">
+    <div class="row">
+        <div class="col-12">
+            <div class="mat-elevation-z8 data-table rounded-3">
+                <mat-horizontal-stepper [orientation]="(stepperOrientation | async)!" #stepper>
+                    <mat-step [stepControl]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Planta</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Planta</mat-label>
+                                <mat-select formControlName="firstCtrl"
+                                    (selectionChange)="onChange('Planta',$event.value)" required>
+                                    <mat-option *ngFor="let item of plantas" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button [disabled]="!firstCtrl || areas.length==0"
+                                    matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!firstCtrl" (click)="obtenerDatos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>Área</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Área</mat-label>
+                                <mat-select formControlName="secondCtrl"
+                                    (selectionChange)="onChange('Area',$event.value)" required>
+                                    <mat-option *ngFor="let item of areas" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(secondFormGroup); ubicacionTecnica.AreaId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!secondCtrl || zonas.length==0"
+                                    matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="secondCtrl==''"
+                                    (click)="obtenerDatos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="thirdFormGroup">
+                        <form [formGroup]="thirdFormGroup">
+                            <ng-template matStepLabel>Zona</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Zona</mat-label>
+                                <mat-select formControlName="thirdCtrl"
+                                    (selectionChange)="onChange('Zona',$event.value)" required>
+                                    <mat-option *ngFor="let item of zonas" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(thirdFormGroup);ubicacionTecnica.ZonaId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!thirdCtrl || secciones.length==0"
+                                    matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!thirdCtrl" (click)="obtenerDatos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="fourthFormGroup">
+                        <form [formGroup]="fourthFormGroup">
+                            <ng-template matStepLabel>Sección</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Sección</mat-label>
+                                <mat-select formControlName="fourthCtrl"
+                                    (selectionChange)="onChange('Seccion',$event.value)" required>
+                                    <mat-option *ngFor="let item of secciones" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(fourthFormGroup);ubicacionTecnica.SeccionId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!fourthCtrl || codigos.length==0"
+                                    matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!fourthCtrl" (click)="obtenerDatos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="fifthFormGroup">
+                        <form [formGroup]="fifthFormGroup">
+                            <ng-template matStepLabel>Código</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Código</mat-label>
+                                <mat-select formControlName="fifthCtrl"
+                                    (selectionChange)="onChange('Codigo',$event.value)" required>
+                                    <mat-option *ngFor="let item of codigos" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(fifthFormGroup);ubicacionTecnica.CodigoId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!fifthCtrl || grupos.length==0"
+                                    matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!fifthCtrl" (click)="obtenerDatos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="sixthFormGroup">
+                        <form [formGroup]="sixthFormGroup">
+                            <ng-template matStepLabel>Grupo</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Grupo</mat-label>
+                                <mat-select formControlName="sixthCtrl"
+                                    (selectionChange)="onChange('Grupo',$event.value)" required>
+                                    <mat-option *ngFor="let item of grupos" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(sixthFormGroup);ubicacionTecnica.GrupoId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!sixthCtrl" matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!sixthCtrl" (click)="obtenerDatos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="seventhFormGroup">
+                        <form [formGroup]="seventhFormGroup">
+                            <ng-template matStepLabel>Equipo</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Equipo</mat-label>
+                                <mat-select formControlName="seventhCtrl"
+                                    (selectionChange)="onChange('Equipo',$event.value)" required>
+                                    <mat-option *ngFor="let item of equipos" [value]="item">
+                                        {{item.Denominacion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(seventhFormGroup);ubicacionTecnica.EquipoId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!seventhCtrl"
+                                    (click)="obtenerDatos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="mat-elevation-z8 data-table">
+                <mat-form-field appearance="standard" class="search-form-field">
+                    <input matInput [(ngModel)]="searchKey" placeholder="Introduce un filtro" (keyup)="applyFilter()"
+                        autocomplete="off" />
+                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"
+                        (click)="onSearchClear()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+                    <!--Columna ID -->
+                    <ng-container matColumnDef="Planta">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            <h6>Planta</h6>
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{row.Planta}}</td>
+                    </ng-container>
+                    <!-- Columna Descripción -->
+                    <ng-container matColumnDef="Area">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            <h6>Área</h6>
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{row.Area}}</td>
+                    </ng-container>
+                    <!-- Columna asignada/no asignada-->
+                    <ng-container matColumnDef="Zona">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            <h6>Zona</h6>
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{row.Zona}}</td>
+                    </ng-container>
+                    <!-- Columna asignada/no asignada-->
+                    <ng-container matColumnDef="Seccion">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            <h6>Sección</h6>
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{row.Seccion}}</td>
+                    </ng-container>
+                    <!-- Columna asignada/no asignada-->
+                    <ng-container matColumnDef="Codigo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            <h6>Código</h6>
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{row.Codigo}}</td>
+                    </ng-container>
+                    <!-- Columna asignada/no asignada-->
+                    <ng-container matColumnDef="Grupo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            <h6>Grupo</h6>
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{row.Grupo}}</td>
+                    </ng-container>
+                    <!-- Columna asignada/no asignada-->
+                    <ng-container matColumnDef="Equipo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            <h6>Equipo</h6>
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{row.Equipo}}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
+                    [pageSizeOptions]="[10, 25, 50, 100, 150, 200]" showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

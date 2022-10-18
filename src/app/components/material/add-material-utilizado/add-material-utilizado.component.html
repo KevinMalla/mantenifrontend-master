@@ -1,0 +1,94 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center">Agregar material</h2>
+        </div>
+    </div>
+    <div class="row" [formGroup]="materialForm">
+        <div class="col-12" >
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Operario</th>
+                        <th>Línea</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <ng-select  formControlName="trabajadorControl" required>
+                                <ng-option *ngFor="let trabajador of trabajadores" [value]="trabajador.CodigoTrabajador">
+                                    {{trabajador.CodigoTrabajador}} - {{trabajador.Nombre}}
+                                </ng-option>
+                            </ng-select>
+                            <div class="text-danger" *ngIf="materialForm.controls.trabajadorControl.errors">
+                                Se require trabajador *
+                            </div>
+                        </td>
+                        <td>
+                            <ng-select formControlName="lineaControl" required>
+                                <ng-option *ngFor="let seccion of secciones" [value]="seccion.SeccionId">
+                                    {{seccion.Denominacion}} - {{seccion.Descripcion}}
+                                </ng-option>
+                            </ng-select>
+                            <div class="text-danger" *ngIf="materialForm.controls.lineaControl.errors">
+                                Se require línea *
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-light w-100">
+                <thead>
+                    <th>Material</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let util of listaProvisional; let i = index">
+                        <td>{{util.Material.Material}} - {{util.Material.Descripcion}}</td>
+                        <td>{{util.Cantidad}}</td>
+                        <td><button type="button" class="btn btn-secondary" (click)="quitar(i)">
+                            <i class="bi bi-x-circle"></i>
+                        </button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="w-100">
+                            <ng-select [(ngModel)]="material.Material">
+                                <ng-option *ngFor="let material of materiales" [value]="material">
+                                    {{material.Material}}-{{material.Descripcion}}
+                                </ng-option>
+                            </ng-select>
+                        </td>
+                        <td>
+                            <input class="text-center border-0" type="number" min="1"
+                                [(ngModel)]="material.Cantidad">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary" (click)="agregarMaterial()">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="listaProvisional.length>0">
+                        <td colspan="3">
+                            <button type="button" class="btn btn-success"[disabled]="materialForm.invalid" (click)="confirmar()">
+                                Confirmar
+                            </button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

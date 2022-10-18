@@ -1,0 +1,23 @@
+.label-schema {
+    color: gray;
+    font-weight:bolder;
+    font-size: medium;
+    text-align: left;
+}
+
+.title {
+    color: #ff8c00;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.mat-raised-button {
+    background-color: #f59c00;
+    color: white;
+}
+.mat-raised-button:hover {
+    background-color: #c7bcaf;
+    color: white;
+}
+
+

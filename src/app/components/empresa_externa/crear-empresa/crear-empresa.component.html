@@ -1,0 +1,40 @@
+
+<div class="container test">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 shadow p-3 mb-5 bg-white rounded animate__animated animate__fadeInLeft">
+            <div class="card-body">
+            <h1 class="title mb-4">Nueva Empresa Externa</h1>
+            <!--<h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+            <div class="container">
+                <!-- <form novalidate [formGroup]="formEmpresaExterna" (ngSubmit)="onSubmit()"> -->
+                <div class="row">
+                <div class="col-12">
+                    <p class="label-schema">Nombre</p>
+                    <input mtInput type="text" 
+                        class="form-control mt-2" placeholder="Empresa" [(ngModel)]="empresaExterna.nombre" required>
+                </div>
+                </div>
+                <br>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <p class="label-schema">Descripción</p>
+                        <textarea mtInput class="form-control mt-2" cols="20" rows="5" [(ngModel)]="empresaExterna.descripcion"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col mt-4 text-center">
+                        <button mat-raised-button (click)="onSubmit()"><span>Añadir Empresa</span></button>
+                    </div>
+                    <div class="col"></div>
+                </div>
+    
+            <!-- </form> -->
+            </div>
+        </div>
+    </div>
+    </div>            
+</div>

@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-12">
+    <p class="h4 text-center">INFORMACIÓN</p>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-12">
+    <p><span class="fw-bold">Ubicación Tecnica:</span> {{data.UbicacionTecnica}}</p>
+    <p><span class="fw-bold">Fecha Creación:</span> {{data.FechaCreacion | date}}</p>
+  </div>
+</div>
+<div class="row" [formGroup]="pendiente">
+  <div class="col-6 d-flex justify-content-center">
+    <mat-form-field appearance="standard">
+      <mat-label>Operario</mat-label>
+      <mat-select formControlName="OperarioId">
+        <mat-option *ngFor="let trabajador of trabajadores" [value]="trabajador.Codigo">{{trabajador.Nombre}}
+        </mat-option>
+      </mat-select>
+      <mat-error>Trabajador es necesario</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-6 d-flex justify-content-center">
+    <mat-form-field appearance="standard">
+      <mat-label>Prioridad</mat-label>
+      <mat-select formControlName="PrioridadId">
+        <mat-option *ngFor="let prioridad of prioridades" [value]="prioridad.PrioridadId">{{prioridad.Descripcion}}
+          <ng-container [ngSwitch]="prioridad.PrioridadId">
+          <i *ngSwitchCase="4" class="bi bi-exclamation-triangle-fill text-danger"></i>
+          <i *ngSwitchCase="3"  class="bi bi-caret-up-fill text-danger"></i>
+          <i *ngSwitchCase="2"  class="fas fa-equals"></i>
+          <i *ngSwitchCase="1"  class="bi bi-caret-down-fill text-success"></i>            
+          </ng-container>
+
+        </mat-option>
+      </mat-select>
+      <mat-error>Prioridad es necesaria</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-12">
+    <div class="mb-3 mt-1">
+      <label for="textarea" class="form-label"><span class="fw-bold">Comentario del responsable:</span></label>
+      <textarea class="form-control" id="textarea" rows="3" formControlName="ComentarioResponsable"></textarea>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 d-flex justify-content-center">
+    <div>
+      <button mat-raised-button [mat-dialog-close]="pendiente.value" [disabled]="pendiente.invalid" class="bg-success">Confirmar</button>
+    </div>
+    <div>
+      <button class="bg-danger" mat-raised-button (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+    <div class="row w-75">
+        <div class="col-12">
+            <div>
+                <h2 class="text-center">Preventivos</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row w-75">
+        <div class="col-12">
+            <mat-form-field appearance="standard" class="search-form-field w-100">
+                <input matInput [(ngModel)]="searchKey" placeholder="Introduce un filtro" (keyup)="applyFilter()"
+                    autocomplete="off" />
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"
+                    (click)="onSearchClear()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <table class="w-100 border" mat-table [dataSource]="dataSource">
+                <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns; let i = index">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <span class="fs-4">
+                            {{columnsToDisplay[i]}}
+                        </span>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit">
+                            <div *ngSwitchCase="'isEdit'; spanHeader">
+                                <button class="btn btn-danger"
+                                    (click)="element.isEdit = !element.isEdit" title="Editar Preventivo">Editar</button>
+                            </div>
+                            <span *ngSwitchDefault class="fs-6">
+                                {{element[col]}}
+                            </span>
+                        </div>
+                        <div [ngSwitch]="col" *ngIf="element.isEdit">
+                            <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                                <button class="btn btn-success"
+                                    (click)="element.isEdit = !element.isEdit; editarPreventivo(element)" title="Guardar">Guardar</button>
+                            </div>
+                            <mat-form-field *ngSwitchCase="'Operario'" appearance="outline" class="w-50 mt-3">
+                                <mat-select [(value)]="element.Codigo">
+                                    <mat-option [value]="0">
+                                       -- NINGUNO --
+                                    </mat-option>
+                                    <mat-option *ngFor="let op of operarios" [value]="op.Codigo">
+                                        {{op.Nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field *ngSwitchCase="'Periodicidad'" appearance="outline" class="w-50 mt-3">
+                                <mat-select [(value)]="element.PeriodicidadId">
+                                    <mat-option *ngFor="let per of periodicidades" [value]="per.PeriodicidadId">
+                                        {{per.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span *ngSwitchCase="'PreventivoId'">
+                                {{element[col]}}
+                            </span>
+                            <mat-form-field *ngSwitchDefault appearance="outline" class="w-50 mt-3">
+                                <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
+                            </mat-form-field>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[10, 25, 50, 100, 150, 200]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

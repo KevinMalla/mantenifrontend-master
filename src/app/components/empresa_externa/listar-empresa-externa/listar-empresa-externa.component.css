@@ -1,0 +1,137 @@
+.label-schema {
+    color: gray;
+    font-weight:bolder;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.title {
+    color: #ff8c00;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.list-panel {
+    background-color: whitesmoke;
+    border-style: solid;
+    border-color: whitesmoke;
+}
+
+a {
+    text-decoration: none;
+    color: #ff8c00;
+
+}
+
+.title-separator {
+    height: 2px;
+    color: gray;
+}
+
+/*.row-separator {
+
+}*/
+
+.btns-horizontally {
+    display: flex;
+}
+
+.pendiente {
+    font-weight: bold;
+    color: #f6c600;
+}
+
+.rechazado {
+    font-weight: bold;
+    color: red;
+}
+
+.terminado{
+    font-weight: bold;
+    color: green;
+}
+
+p {
+    font-weight: bold;
+    color: #7f807d;
+}
+
+.mat-raised-button {
+    background-color: whitesmoke;
+    color: #ff8c00;
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: #ff8c00;
+    border-style: solid;
+}
+
+.mat-raised-button:hover {
+    background-color:  #ff8c00 ;
+    color: white;
+    border-radius: 8px;
+}
+
+.excel {
+    background-color: #333333;
+    color: whitesmoke;
+    border-radius: 8px;
+    border-width: 0px;
+    border-color: green;
+    border-style: solid;
+}
+
+.excel:hover{
+    background-color:  green ;
+    color: white;
+    border-radius: 8px;
+}
+
+/** Estilos de la tabla **/
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #ff8c00;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #ff8c00;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table thead tr {
+    background-color: #ff8c00;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table {
+
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+
+
+/***************************/
+
+.header-btn-space {
+    margin-left: 10px;
+}
+

@@ -1,0 +1,141 @@
+<div class="container-fluid mb-5">
+    <div class="row">
+        <p class="h4 text-center">ORDENES PREVENTIVAS
+        <p>
+            <!-- <div class="col-12 d-flex justify-content-center">
+            <button id="p"><span aria-label="Correctivo"
+                    style='display:block;width: 32px;height: 32px ; background: url("https://raw.githubusercontent.com/eladnava/material-letter-icons/master/dist/svg/P.svg"); background-position:center center; background-size: 100%;background-repeat: no-repeat;'></span></button>
+            <span></span>
+        </div> -->
+    </div>
+    <div class="row overflow-auto d-flex justify-content-center" style="height:80vh;">
+        <div class="col-3 bg-light" [hidden]="tipoUsuario==1 || tipoUsuario==5 ? false: true">
+            <div class="row sticky-top bg-light" style="z-index: 4;">
+                <div class="h6 text-center pt-3">
+                    <p>PLANIFICADA <span class="badge rounded-pill bg-dark">{{preventivoPlanificada.length}}</span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div cdkDropList #planificadaList="cdkDropList" [cdkDropListData]="preventivoPlanificada"
+                    [cdkDropListConnectedTo]="[pendienteList]" class="h-100">
+                    <div class="card border-0 mb-1 mat-elevation-z1" *ngFor="let item of preventivoPlanificada" cdkDrag
+                        [cdkDragData]="item">
+                        <div class="card-header text-center font-weight-bold">{{item.OrdenId}}-{{item.Preventivo}}
+                        </div>
+                        <div class="card-body text-dark">
+                            <h5 class="card-title h6"
+                                [ngClass]="{'text-success': item.PrioridadId===1,'text-secondary': item.PrioridadId===2,'text-warning': item.PrioridadId===3,'text-danger': item.PrioridadId===4}">
+                                {{item.UbicacionTecnica}}</h5>
+                            <p class="card-text">{{item.PersonaResponsable}}</p>
+                            <p class="card-text text-muted fs-6">Creada el {{item.FechaCreacion | date: 'fullDate'}}</p>
+                        </div>
+                        <div class="card-footer d-flex flex-row-reverse">
+                            <ng-container [ngSwitch]="item.PrioridadId">
+                                <i *ngSwitchCase="4" class="bi bi-exclamation-triangle-fill text-danger fs-5"></i>
+                                <i *ngSwitchCase="3" class="bi bi-caret-up-fill text-warning fs-5"></i>
+                                <i *ngSwitchCase="2" class="fas fa-equals fs-6"></i>
+                                <i *ngSwitchCase="1" class="bi bi-caret-down-fill text-success fs-5"></i>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 bg-light">
+            <div class="row sticky-top bg-light" style="z-index: 4;">
+                <div class="h6 text-center pt-3">
+                    <p>PENDIENTE <span class="badge rounded-pill bg-dark">{{preventivoPendiente.length}}</span></p>
+                </div>
+            </div>
+            <div class="row h-100">
+                <div cdkDropList #pendienteList="cdkDropList" [cdkDropListData]="preventivoPendiente"
+                    [cdkDropListConnectedTo]="[terminadaList]" (cdkDropListDropped)="dropPendiente($event)"
+                    class="example-list">
+                    <div class="card border-0 mb-1 mat-elevation-z1" *ngFor="let item of preventivoPendiente" cdkDrag
+                        [cdkDragData]="item" (click)="abrirOrden(item)">
+                        <div class="card-header text-center font-weight-bold">{{item.OrdenId}}-{{item.Preventivo}}
+                        </div>
+                        <div class="card-body text-dark">
+                            <h5 class="card-title h6"
+                                [ngClass]="{'text-success': item.PrioridadId===1,'text-secondary': item.PrioridadId===2,'text-warning': item.PrioridadId===3,'text-danger': item.PrioridadId===4}">
+                                {{item.UbicacionTecnica}}</h5>
+                            <p class="card-text">{{item.PersonaResponsable}}</p>
+                            <p class="card-text">{{item.Operario}}</p>
+                            <p class="card-text text-muted fs-6">Asignada el {{item.FechaPendiente | date: 'fullDate'}}
+                            </p>
+                        </div>
+                        <div class="card-footer d-flex flex-row-reverse">
+                            <ng-container [ngSwitch]="item.PrioridadId">
+                                <i *ngSwitchCase="4" class="bi bi-exclamation-triangle-fill text-danger fs-5"></i>
+                                <i *ngSwitchCase="3" class="bi bi-caret-up-fill text-warning fs-5"></i>
+                                <i *ngSwitchCase="2" class="fas fa-equals fs-6"></i>
+                                <i *ngSwitchCase="1" class="bi bi-caret-down-fill text-success fs-5"></i>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 bg-light">
+            <div class="row sticky-top bg-light" style="z-index: 4;">
+                <div class="h6 text-center pt-3">
+                    <p>TERMINADA <span class="badge rounded-pill bg-dark">{{preventivoTerminada.length}}</span></p>
+                </div>
+            </div>
+            <div class="row h-100">
+                <div cdkDropList #terminadaList="cdkDropList" [cdkDropListData]="preventivoTerminada"
+                    [cdkDropListConnectedTo]="tipoUsuario==1 || tipoUsuario==5 ? [validadaList,pendienteList] : validadaList"
+                    (cdkDropListDropped)="dropTerminada($event)" class="example-list">
+                    <div class="card border-0 mb-1 mat-elevation-z1"
+                        (click)="(tipoUsuario==1 || tipoUsuario==5) && abrirOrden(item)"
+                        *ngFor="let item of preventivoTerminada" cdkDrag [cdkDragData]="item">
+                        <div class="card-header text-center font-weight-bold">{{item.OrdenId}}-{{item.Preventivo}}
+                        </div>
+                        <div class="card-body text-dark">
+                            <h5 class="card-title h6"
+                                [ngClass]="{'text-success': item.PrioridadId===1,'text-secondary': item.PrioridadId===2,'text-warning': item.PrioridadId===3,'text-danger': item.PrioridadId===4}">
+                                {{item.UbicacionTecnica}}</h5>
+                            <p class="card-text">{{item.PersonaResponsable}}</p>
+                            <p class="card-text text-muted fs-6">Terminada el {{item.FechaTerminado | date: 'fullDate'}}
+                            </p>
+                        </div>
+                        <div class="card-footer d-flex flex-row-reverse">
+                            <ng-container [ngSwitch]="item.PrioridadId">
+                                <i *ngSwitchCase="4" class="bi bi-exclamation-triangle-fill text-danger fs-5"></i>
+                                <i *ngSwitchCase="3" class="bi bi-caret-up-fill text-warning fs-5"></i>
+                                <i *ngSwitchCase="2" class="fas fa-equals fs-6"></i>
+                                <i *ngSwitchCase="1" class="bi bi-caret-down-fill text-success fs-5"></i>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 bg-light" [hidden]="tipoUsuario==1 || tipoUsuario==5? false: true">
+            <div class="row sticky-top bg-light" style="z-index: 4;">
+                <div class="h6 text-center pt-3">
+                    <p>VALIDADA <span class="badge rounded-pill bg-dark">{{preventivoValidada.length}}</span></p>
+                </div>
+            </div>
+            <div class="row h-100">
+                <div cdkDropList #validadaList="cdkDropList" [cdkDropListData]="preventivoValidada"
+                    (cdkDropListDropped)="dropValidada($event)" class="example-list">
+                    <div class="card border-0 mb-1 mat-elevation-z1" *ngFor="let item of preventivoValidada" cdkDrag
+                        [cdkDragData]="item">
+                        <div class="card-header text-center font-weight-bold">{{item.OrdenId}}-{{item.Preventivo}}
+                        </div>
+                        <div class="card-body text-dark">
+                            <h5 class="card-title h6 text-body">{{item.UbicacionTecnica}}</h5>
+                            <p class="card-text">{{item.PersonaResponsable}}</p>
+                            <p class="card-text text-muted fs-6">Validada el {{item.FechaValidado | date: 'fullDate'}}
+                            </p>
+                        </div>
+                        <div class="card-footer d-flex flex-row-reverse">
+                            <i class="bi bi-check2 text-success fs-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

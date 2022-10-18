@@ -1,0 +1,173 @@
+<div class="container-fluid h-100">
+    <div class="row h-25 d-flex justify-content-center align-items-center">
+        <div class="col-12">
+            <div class="mat-elevation-z8 data-table rounded-3" style="width: 95%;">
+                <mat-horizontal-stepper [orientation]="(stepperOrientation | async)!" #stepper>
+                    <mat-step [stepControl]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Planta</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Planta</mat-label>
+                                <mat-select formControlName="firstCtrl" (selectionChange)="onChange('Planta',$event.value)"
+                                    required>
+                                    <mat-option *ngFor="let item of plantas" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button [disabled]="!firstCtrl || areas.length==0"
+                                    matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!firstCtrl || bloqueado"
+                                    (click)="selectPreventivos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>Área</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Área</mat-label>
+                                <mat-select formControlName="secondCtrl" (selectionChange)="onChange('Area',$event.value)"
+                                    required>
+                                    <mat-option *ngFor="let item of areas" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(secondFormGroup); ubicacionTecnica.AreaId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!secondCtrl || zonas.length==0"
+                                    matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!secondCtrl || bloqueado"
+                                    (click)="selectPreventivos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="thirdFormGroup">
+                        <form [formGroup]="thirdFormGroup">
+                            <ng-template matStepLabel>Zona</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Zona</mat-label>
+                                <mat-select formControlName="thirdCtrl" (selectionChange)="onChange('Zona',$event.value)"
+                                    required>
+                                    <mat-option *ngFor="let item of zonas" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(thirdFormGroup); ubicacionTecnica.ZonaId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!thirdCtrl || secciones.length==0"
+                                    matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!thirdCtrl || bloqueado"
+                                    (click)="selectPreventivos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="fourthFormGroup">
+                        <form [formGroup]="fourthFormGroup">
+                            <ng-template matStepLabel>Sección</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Sección</mat-label>
+                                <mat-select formControlName="fourthCtrl" (selectionChange)="onChange('Seccion',$event.value)"
+                                    required>
+                                    <mat-option *ngFor="let item of secciones" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(fourthFormGroup); ubicacionTecnica.SeccionId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!fourthCtrl || codigos.length==0"
+                                    matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!fourthCtrl || bloqueado"
+                                    (click)="selectPreventivos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="fifthFormGroup">
+                        <form [formGroup]="fifthFormGroup">
+                            <ng-template matStepLabel>Código</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Código</mat-label>
+                                <mat-select formControlName="fifthCtrl" (selectionChange)="onChange('Codigo',$event.value)"
+                                    required>
+                                    <mat-option *ngFor="let item of codigos" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(fifthFormGroup); ubicacionTecnica.CodigoId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!fifthCtrl || grupos.length==0"
+                                    matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!fifthCtrl || bloqueado"
+                                    (click)="selectPreventivos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="sixthFormGroup">
+                        <form [formGroup]="sixthFormGroup">
+                            <ng-template matStepLabel>Grupo</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Grupo</mat-label>
+                                <mat-select formControlName="sixthCtrl" (selectionChange)="onChange('Grupo',$event.value)"
+                                    required>
+                                    <mat-option *ngFor="let item of grupos" [value]="item">
+                                        {{item.Denominacion}} - {{item.Descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(sixthFormGroup); ubicacionTecnica.GrupoId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!sixthCtrl" matStepperNext>Siguiente</button>
+                                <button mat-raised-button [disabled]="!sixthCtrl || bloqueado"
+                                    (click)="selectPreventivos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="seventhFormGroup">
+                        <form [formGroup]="seventhFormGroup">
+                            <ng-template matStepLabel>Equipo</ng-template>
+                            <mat-form-field class="control">
+                                <mat-label>Equipo</mat-label>
+                                <mat-select formControlName="seventhCtrl" (selectionChange)="onChange('Equipo',$event.value)"
+                                    required>
+                                    <mat-option *ngFor="let item of equipos" [value]="item">
+                                        {{item.Denominacion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button (click)="resetForm(seventhFormGroup); ubicacionTecnica.EquipoId=''"
+                                    matStepperPrevious>Anterior</button>
+                                <button mat-raised-button [disabled]="!seventhCtrl || bloqueado"
+                                    (click)="selectPreventivos()">Ver</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+    </div>
+    <div class="row h-75 pt-5 d-flex justify-content-center align-items-center">
+        <div class="col-12 h-75 position-relative" style="width: 95%;">
+            <div class="mh-100 table-responsive mat-elevation-z8 rounded-3">
+                <table class="table table-hover caption-top">
+                    <caption class="text-dark position-absolute top-0 start-50 translate-middle pb-5">Semana Actual:
+                        {{semanaActual}}</caption>
+                    <thead id="thead">
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

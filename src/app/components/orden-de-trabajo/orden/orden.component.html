@@ -1,0 +1,166 @@
+<div class="container">
+    <div class="data-table">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td><img src="assets/Imagenes/logo.png" height="100" /></td>
+                    <td colspan="2">
+                        <h2>ORDEN DE TRABAJO</h2>
+                    </td>
+                    <td>
+                        <h4>ORDEN Nº {{ordenDeTrabajo.OrdenId}}</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">TIPO DE ORDEN</td>
+                    <td>{{ordenDeTrabajo.Tipo}}</td>
+                    <td class="label">UBICACION TECNICA</td>
+                    <td style="width: 30%;">
+                        <p class="text-break">{{ordenDeTrabajo.UbicacionTecnica}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">PRIORIDAD</td>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-select [(value)]="ordenDeTrabajo.PrioridadId">
+                                <mat-option *ngFor="let per of prioridades" [value]="per.PrioridadId">
+                                    {{per.Descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td class="label">EQUIPO</td>
+                    <td>{{ordenDeTrabajo.Equipo}}</td>
+                </tr>
+                <tr>
+
+                </tr>
+                <tr>
+                    <td class="label">FECHA CREACIÓN</td>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha creación</mat-label>
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="ordenDeTrabajo.FechaCreacion">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                    <td class="label">FECHA PENDIENTE</td>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha pendiente</mat-label>
+                            <input matInput [matDatepicker]="picker1" [(ngModel)]="ordenDeTrabajo.FechaPendiente">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">FECHA TERMINADO</td>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha terminado</mat-label>
+                            <input matInput [matDatepicker]="picker2" [(ngModel)]="ordenDeTrabajo.FechaTerminado">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                    <td class="label">FECHA VALIDADO</td>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha validado</mat-label>
+                            <input matInput [matDatepicker]="picker3" [(ngModel)]="ordenDeTrabajo.FechaValidado">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">ESTADO</td>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-select [(value)]="ordenDeTrabajo.EstadoId">
+                                <mat-option *ngFor="let estado of estados" [value]="estado.EstadoId">
+                                    {{estado.Descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td class="label">PREVENTIVO</td>
+                    <td>{{ordenDeTrabajo.Preventivo}}</td>
+                </tr>
+                <tr>
+                    <td class="label">P. RESPONSABLE</td>
+                    <td>{{ordenDeTrabajo.PersonaResponsable}}</td>
+                    <td class="label">LOCALIZACION</td>
+                    <td>{{ordenDeTrabajo.Localizacion}}</td>
+                </tr>
+                <ng-container *ngIf="ordenDeTrabajo.TipoId==1">
+                    <tr>
+                        <td class="label">PRÓXIMA REVISIÓN</td>
+                        <td>{{proximaRevi | date}}</td>
+                        <td class="label">TAREAS</td>
+                        <td><button type="button" class="btn btn-light" (click)="abrirListadoTareas()"><i
+                                    class="bi bi-card-checklist"></i> Listado</button>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="ordenDeTrabajo.TipoId==2">
+                    <tr>
+                        <td colspan="4" class="label">DESCRIPCIÓN CORRECTIVO</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">{{ordenDeTrabajo.DescripcionCorrectivo}}</td>
+                    </tr>
+                </ng-container>
+                <tr>
+                    <td colspan="3" class="label">COMENTARIO</td>
+                    <td class="label" colspan="1">OPERARIO</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="p-0">
+                        <textarea class="form-control" [(ngModel)]="ordenDeTrabajo.Comentario"></textarea>
+                    </td>
+                    <td colspan="1">{{ordenDeTrabajo.OperarioId}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="label">COMENTARIO DEL RESPONSABLE DE MANTENIMIENTO</td>
+                    <td class="label" colspan="1">TIEMPO EMPLEADO (Minutos)</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="p-0">
+                        <textarea class="form-control">{{ordenDeTrabajo.ComentarioResponsable}}</textarea>
+                    </td>
+                    <td colspan="1"><input type="number" [(ngModel)]="ordenDeTrabajo.TiempoEmpleado"></td>
+                </tr>
+                <tr>
+                    <td class="label" colspan="2">MATERIAL</td>
+                    <td class="label">CANTIDAD</td>
+                    <td class="label">ACCIONES</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <ng-select [(ngModel)]="material" class="w-100">
+                            <ng-option *ngFor="let material of materiales" [value]="material">{{material.Material}}-{{material.Descripcion}}</ng-option>
+                        </ng-select>
+                    </td>
+                    <td>
+                        <input class="border-0 text-center" type="number" id="cantidad" name="cantidad" min="1"[(ngModel)]="cantidad">                            
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success" (click)="agregarMaterial()"><i
+                                class="bi bi-plus-lg"></i></button>
+                        <button type="button" class="btn btn-light ms-2" (click)="verDetalleGasto()"><i
+                                class="bi bi-eye-fill"></i> Detalle</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-md-6 offset-md-5 mb-2">
+            <button class="button1 btn btn-large btn-success" (click)="guardar()">
+                <mat-icon>save</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

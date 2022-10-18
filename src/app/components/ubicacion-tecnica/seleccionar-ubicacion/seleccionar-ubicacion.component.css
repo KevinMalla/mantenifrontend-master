@@ -1,0 +1,54 @@
+.control {
+    width: 100%;
+}
+
+.mat-raised-button{
+    background-color: #ff8c00;
+    color: white;
+    margin:16px 8px
+  }
+
+  .full-width-table {
+    width: 100%;    
+  }
+.data-table{
+  width: 80%;
+  margin: 20px auto;
+  padding: 1%;
+  background-color: white;
+}
+.data-table .mat-form-field {
+  font-size: 14px;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+  table {
+    width: 100%;
+  }
+  td, th {
+    width: 25%;
+  }
+
+.mat-column-Planta, .mat-column-Area, .mat-column-Zona,
+.mat-column-Seccion, .mat-column-Codigo, .mat-column-Grupo,
+.mat-column-Equipo, .mat-column-Acciones
+{
+  padding-right: 1%;
+  Word-wrap: break-Word !important;
+  white-space: unset !important;
+  flex: 0 0 12% !important;
+  width: 12% !important;
+  overflow-wrap: break-Word;
+  Word-wrap: break-Word;
+
+  Word-break: break-Word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+::ng-deep .mat-horizontal-stepper-header, ::ng-deep .mat-vertical-stepper-header{
+  pointer-events: none !important;
+}

@@ -1,0 +1,83 @@
+.full-width-table {
+    width: 100%;    
+  }
+.data-table{
+  width: 100%;
+  margin: 20px auto;
+  padding: 1%;
+  background-color: white
+}
+.data-table .mat-form-field {
+  font-size: 14px;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.mat-raised-button{
+  background-color: #ff8c00;
+  color: white;
+}
+table {
+  width: 100%;
+}
+
+.mat-column-OrdenId, .mat-column-Preventivo, .mat-column-UbicacionTecnica, .mat-column-Linea, .mat-column-Estado, .mat-column-FechaCreacion, .mat-column-FechaValidado, .mat-column-acciones
+{
+  Word-wrap: break-Word !important;
+  white-space: unset !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  overflow-wrap: break-Word;
+  Word-wrap: break-Word;
+  Word-break: break-Word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+/* Mat expand */
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 8px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
